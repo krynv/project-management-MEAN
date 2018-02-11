@@ -1,6 +1,7 @@
 # Angular 2 Application for Project Management
 
 [![Build Status](https://travis-ci.com/krynv/project-management-MEAN.svg?token=M3MdFm712J5BiykqssE8&branch=develop)](https://travis-ci.com/krynv/project-management-MEAN) 
+
 Clone repo: 
 
     git clone git@github.com:krynv/project-management.git && cd project-management
