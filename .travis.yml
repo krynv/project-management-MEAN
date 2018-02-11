@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "node"
+
+branches: 
+  only: 
+    - develop 
+    - master 
+
+before install: 
+  npm i -g @angular/cli
+
+script: 
+  ng-build --dev 
