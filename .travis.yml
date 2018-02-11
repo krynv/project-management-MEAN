@@ -11,4 +11,4 @@ before install:
   npm i -g @angular/cli
 
 script: 
-  ng-build --dev 
+  ng build --dev 
