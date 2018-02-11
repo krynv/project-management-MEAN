@@ -61,7 +61,7 @@ let validPasswordChecker = (password) => {
     if (!password) {
         return false;
     } else {
-        const regExp = new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/);
+        const regExp = new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,35}$/);
         return regExp.test(password);
     }
 }
@@ -91,7 +91,7 @@ const usernameValidators = [
 const passwordValidators = [
     {
         validator: passwordLengthChecker,
-        message: 'Password must be at least 8 characters long',
+        message: 'Password must be at least 8 characters long but no more than 35',
     },
     {
         validator: validPasswordChecker,
