@@ -8,6 +8,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { ProjectComponent } from '../project/project.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../app-routing.module';
@@ -18,6 +19,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
+import { ProjectService } from '../../services/project.service';
 
 describe('HomeComponent', () => {
 	let component: HomeComponent;
@@ -32,7 +34,8 @@ describe('HomeComponent', () => {
 				DashboardComponent,
 				RegisterComponent,
 				LoginComponent,
-				ProfileComponent
+				ProfileComponent,
+				ProjectComponent
 			],
 			imports: [
 				HttpModule,
@@ -40,7 +43,7 @@ describe('HomeComponent', () => {
 				ReactiveFormsModule,
 				FlashMessagesModule
 			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
 		})
 			.compileComponents();
 	}));

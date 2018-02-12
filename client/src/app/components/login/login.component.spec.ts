@@ -9,12 +9,14 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
 import { HomeComponent } from '../home/home.component';
 import { AppComponent } from '../../app.component';
+import { ProjectComponent } from '../project/project.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { RegisterComponent } from '../register/register.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { APP_BASE_HREF } from '@angular/common';
+import { ProjectService } from '../../services/project.service';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -29,7 +31,8 @@ describe('LoginComponent', () => {
 				DashboardComponent,
 				RegisterComponent,
 				LoginComponent,
-				ProfileComponent
+				ProfileComponent,
+				ProjectComponent
 			],
 			imports: [
 				HttpModule,
@@ -37,7 +40,7 @@ describe('LoginComponent', () => {
 				ReactiveFormsModule,
 				FlashMessagesModule,
 			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
 		})
 			.compileComponents();
 	}));

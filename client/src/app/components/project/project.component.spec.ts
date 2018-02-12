@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
+import { ProjectComponent } from './project.component';
 
 import { AppComponent } from '../../app.component';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { HomeComponent } from '../home/home.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { ProjectComponent } from '../project/project.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../app-routing.module';
@@ -21,9 +21,9 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
 import { ProjectService } from '../../services/project.service';
 
-describe('DashboardComponent', () => {
-	let component: DashboardComponent;
-	let fixture: ComponentFixture<DashboardComponent>;
+describe('ProjectComponent', () => {
+	let component: ProjectComponent;
+	let fixture: ComponentFixture<ProjectComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -49,7 +49,7 @@ describe('DashboardComponent', () => {
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(DashboardComponent);
+		fixture = TestBed.createComponent(ProjectComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
