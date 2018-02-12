@@ -1,27 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
-
+import { LoginComponent } from './login.component';
+import { FormGroup, FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { HttpModule } from '@angular/http';
+import { AppRoutingModule } from '../../app-routing.module';
+import { AuthGuard } from '../../guards/auth.guard';
+import { NotAuthGuard } from '../../guards/notAuth.guard';
+import { HomeComponent } from '../home/home.component';
 import { AppComponent } from '../../app.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { RegisterComponent } from '../register/register.component';
-import { LoginComponent } from '../login/login.component';
 import { ProfileComponent } from '../profile/profile.component';
-
-import { HttpModule } from '@angular/http';
-import { AppRoutingModule } from '../../app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
 import { APP_BASE_HREF } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
-import { AuthGuard } from '../../guards/auth.guard';
-import { NotAuthGuard } from '../../guards/notAuth.guard';
 
-describe('HomeComponent', () => {
-	let component: HomeComponent;
-	let fixture: ComponentFixture<HomeComponent>;
+describe('LoginComponent', () => {
+	let component: LoginComponent;
+	let fixture: ComponentFixture<LoginComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -38,7 +35,7 @@ describe('HomeComponent', () => {
 				HttpModule,
 				AppRoutingModule,
 				ReactiveFormsModule,
-				FlashMessagesModule
+				FlashMessagesModule,
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
 		})
@@ -46,7 +43,7 @@ describe('HomeComponent', () => {
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(HomeComponent);
+		fixture = TestBed.createComponent(LoginComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

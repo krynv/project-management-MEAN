@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { ProfileComponent } from './profile.component';
 
 import { AppComponent } from '../../app.component';
 import { HomeComponent } from '../home/home.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { ProfileComponent } from '../profile/profile.component';
+import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 
@@ -19,12 +19,12 @@ import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
 
-describe('RegisterComponent', () => {
-    let component: RegisterComponent;
-    let fixture: ComponentFixture<RegisterComponent>;
+describe('ProfileComponent', () => {
+	let component: ProfileComponent;
+	let fixture: ComponentFixture<ProfileComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
 			declarations: [
 				AppComponent,
 				NavbarComponent,
@@ -42,16 +42,16 @@ describe('RegisterComponent', () => {
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
 		})
-            .compileComponents();
-    }));
+			.compileComponents();
+	}));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(RegisterComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(ProfileComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

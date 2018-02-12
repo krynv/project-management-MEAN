@@ -14,39 +14,51 @@ import { AuthService } from './services/auth.service';
 
 import { APP_BASE_HREF } from '@angular/common';
 
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        NavbarComponent,
-        HomeComponent,
-        DashboardComponent,
-        RegisterComponent
-      ],
-      imports: [
-        BrowserModule,
-        HttpModule,
-        AppRoutingModule,
-        ReactiveFormsModule
-      ],  
-      providers: [{ provide: APP_BASE_HREF, useValue : '/'}, AuthService],
-    }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'Angular 2'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Angular 2');
-  }));
-  it('should render the navbar', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-navbar')).toBeTruthy();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				AppComponent,
+				NavbarComponent,
+				HomeComponent,
+				DashboardComponent,
+				RegisterComponent,
+				LoginComponent,
+				ProfileComponent
+			],
+			imports: [
+				BrowserModule,
+				HttpModule,
+				AppRoutingModule,
+				ReactiveFormsModule,
+				FlashMessagesModule
+			],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
+		}).compileComponents();
+	}));
+	
+	it('should create the app', async(() => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.debugElement.componentInstance;
+		expect(app).toBeTruthy();
+	}));
+
+	it(`should have as title 'ManageR'`, async(() => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.debugElement.componentInstance;
+		expect(app.title).toEqual('ManageR');
+	}));
+
+	it('should render the navbar', async(() => {
+		const fixture = TestBed.createComponent(AppComponent);
+		fixture.detectChanges();
+		const compiled = fixture.debugElement.nativeElement;
+		expect(compiled.querySelector('app-navbar')).toBeTruthy();
+	}));
 });

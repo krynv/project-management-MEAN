@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 
-describe('client App', () => {
+describe('Main Page Test', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the home screen on first launch', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('MEAN Stack Application');
+    expect(page.getParagraphText()).toEqual('ManageR');
   });
 });
