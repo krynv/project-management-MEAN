@@ -1,25 +1,57 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { HomeComponent } from './home.component';
+import { HomeComponent } from './home.component';
 
-// describe('HomeComponent', () => {
-//   let component: HomeComponent;
-//   let fixture: ComponentFixture<HomeComponent>;
+import { AppComponent } from '../../app.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { RegisterComponent } from '../register/register.component';
+import { LoginComponent } from '../login/login.component';
+import { ProfileComponent } from '../profile/profile.component';
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ HomeComponent ]
-//     })
-//     .compileComponents();
-//   }));
+import { HttpModule } from '@angular/http';
+import { AppRoutingModule } from '../../app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(HomeComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+import { APP_BASE_HREF } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { AuthGuard } from '../../guards/auth.guard';
+import { NotAuthGuard } from '../../guards/notAuth.guard';
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+describe('HomeComponent', () => {
+	let component: HomeComponent;
+	let fixture: ComponentFixture<HomeComponent>;
+
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				AppComponent,
+				NavbarComponent,
+				HomeComponent,
+				DashboardComponent,
+				RegisterComponent,
+				LoginComponent,
+				ProfileComponent
+			],
+			imports: [
+				HttpModule,
+				AppRoutingModule,
+				ReactiveFormsModule,
+				FlashMessagesModule
+			],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
+		})
+			.compileComponents();
+	}));
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(HomeComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+});
