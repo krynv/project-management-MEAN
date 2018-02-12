@@ -27,7 +27,7 @@ app.use(express.static(`${__dirname}/client/dist`));
 app.use('/authentication', authentication);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(`${__dirname}/client/dist/index.html`));
+    res.sendFile(path.join(`${__dirname}/client/src/index.html`));
 });
 
 app.listen(1337, () => {
