@@ -17,6 +17,7 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './services/project.service';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EditProjectComponent } from './components/project/edit-project/edit-pro
     LoginComponent,
     ProfileComponent,
     ProjectComponent,
-    EditProjectComponent
+    EditProjectComponent,
+    DeleteProjectComponent
   ],
   imports: [
     BrowserModule,

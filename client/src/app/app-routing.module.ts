@@ -9,6 +9,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { ProjectComponent } from './components/project/project.component';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
 
 const appRoutes: Routes = [
     { 
@@ -43,6 +44,11 @@ const appRoutes: Routes = [
     {
         path: 'edit-project/:id',
         component: EditProjectComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'delete-project/:id',
+        component: DeleteProjectComponent,
         canActivate: [AuthGuard],
     },
     {

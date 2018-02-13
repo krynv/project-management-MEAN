@@ -45,4 +45,9 @@ export class ProjectService {
 		return this.http.put(`${this.domain}/projects/updateProject/`, project, this.options).map(res => res.json());
 	}
 
+	deleteProject(id) {
+		this.createAuthenticationHeaders(); 
+		return this.http.delete(`${this.domain}/projects/deleteProject/${id}`, this.options).map(res => res.json());
+	}
+
 }

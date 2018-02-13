@@ -132,7 +132,7 @@ module.exports = (router) => {
 								} else {
 
 									if (user.username !== project.createdBy) {
-										res.json({ success: false, message: 'You are not authorized to edit this project' }); 
+										res.json({ success: false, message: 'You are not authorized to edit this project' });
 									} else {
 										project.title = req.body.title;
 										project.body = req.body.body;
@@ -145,6 +145,53 @@ module.exports = (router) => {
 												}
 											} else {
 												res.json({ success: true, message: 'Project updated' });
+											}
+										});
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
+	router.delete('/deleteProject/:id', (req, res) => {
+		
+		if (!req.params.id) {
+			res.json({ success: false, message: 'No id provided' }); 
+		} else {
+			
+			Project.findOne({ _id: req.params.id }, (err, project) => {
+				
+				if (err) {
+					res.json({ success: false, message: 'Invalid id' }); 
+				} else {
+					
+					if (!project) {
+						res.json({ success: false, messasge: 'Project was not found' }); 
+					} else {
+						
+						User.findOne({ _id: req.decoded.userId }, (err, user) => {
+							
+							if (err) {
+								res.json({ success: false, message: err }); 
+							} else {
+								
+								if (!user) {
+									res.json({ success: false, message: 'Unable to authenticate user' }); 
+								} else {
+									
+									if (user.username !== project.createdBy) {
+										res.json({ success: false, message: 'You are not authorized to delete this project' }); 
+									} else {
+										
+										project.remove((err) => {
+											if (err) {
+												res.json({ success: false, message: err }); 
+											} else {
+												res.json({ success: true, message: 'Project deleted' });
 											}
 										});
 									}

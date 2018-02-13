@@ -1,0 +1,56 @@
+<h1 class="page-header">Delete Project</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+	<div [ngClass]="messageClass">
+		{{ message }}
+	</div>
+</div>
+
+<div class="col-md-6" *ngIf="foundProject">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" name="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Confirm</h4>
+		</div>
+
+
+		<div class="modal-body">
+			<p>Are you sure you would like to delete this project?</p>
+		</div>
+
+		<div class="modal-footer">
+			<button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="deleteProject()">Yes</button>
+			<a routerLink="/project">
+				<button [disabled]="processing" type="button" name="button" class="btn btn-danger">No</button>
+			</a>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ project.title }}</h3>
+		</div>
+
+		<div class="panel-body">
+			{{ project.body }}
+		</div>
+
+		<div class="panel-footer">
+			<strong>Created by: </strong>{{ project.createdBy}}
+			<br />
+			<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
+			<br />
+			<strong>Due on: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
+			<br />
+			<div>
+				<strong>Individuals on task: </strong>{{ project.numberOfAssignees }} people
+				<br />
+				<strong>Status: </strong>{{ project.projectStatus }}
+				<br />
+			</div>
+		</div>
+	</div>
+
+</div>
