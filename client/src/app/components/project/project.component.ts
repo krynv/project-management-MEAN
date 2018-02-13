@@ -17,6 +17,7 @@ export class ProjectComponent implements OnInit {
 	form;
 	processing = false;
 	username;
+	projects;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -68,6 +69,7 @@ export class ProjectComponent implements OnInit {
 
 	reloadProjects() {
 		this.loadingProjects = true;
+		this.getAllProjects();
 
 		setTimeout(() => {
 			this.loadingProjects = false;
@@ -98,6 +100,7 @@ export class ProjectComponent implements OnInit {
 			} else {
 				this.messageClass = 'alert alert-success';
 				this.message = data.message;
+				this.getAllProjects();
 
 				setTimeout(() => {
 					this.newProject = false;
@@ -114,10 +117,18 @@ export class ProjectComponent implements OnInit {
 		window.location.reload();
 	}
 
+	getAllProjects() {
+		this.projectService.getAllProjects().subscribe(data => {
+			this.projects = data.projects; 
+		});
+	}
+
 	ngOnInit() {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
 		});
+
+		this.getAllProjects();
 	}
 
 }

@@ -49,5 +49,19 @@ module.exports = (router) => {
 		}
 	});
 
+	router.get('/allProjects', (req, res) => {
+		Project.find({}, (err, projects) => {
+		  if (err) {
+			res.json({ success: false, message: err }); 
+		  } else {
+			if (!projects) {
+			  res.json({ success: false, message: 'No projects found.' }); 
+			} else {
+			  res.json({ success: true, projects: projects }); 
+			}
+		  }
+		}).sort({ '_id': -1 }); // give me newest first (descending order - earliest created in db)
+	  });
+
 	return router;
 };
