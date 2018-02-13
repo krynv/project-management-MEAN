@@ -14,6 +14,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { EditProjectComponent } from '../components/project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from '../components/project/delete-project/delete-project.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../app-routing.module';
@@ -38,6 +39,7 @@ describe('AuthService', () => {
 			ProfileComponent,
 			ProjectComponent,
 			EditProjectComponent,
+			DeleteProjectComponent,
 		],
 		imports: [
 			HttpModule,

@@ -18,6 +18,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { APP_BASE_HREF } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 import { EditProjectComponent } from '../project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from '../project/delete-project/delete-project.component';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -35,6 +36,7 @@ describe('LoginComponent', () => {
 				ProfileComponent,
 				ProjectComponent,
 				EditProjectComponent,
+				DeleteProjectComponent,
 			],
 			imports: [
 				HttpModule,

@@ -10,6 +10,7 @@ import { LoginComponent } from '../../login/login.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { ProjectComponent } from '../../project/project.component';
 import { ProfileComponent } from '../../profile/profile.component';
+import { DeleteProjectComponent } from '../../project/delete-project/delete-project.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../../app-routing.module';
@@ -38,6 +39,7 @@ describe('EditProjectComponent', () => {
 				ProfileComponent,
 				ProjectComponent,
 				EditProjectComponent,
+				DeleteProjectComponent,
 			],
 			imports: [
 				HttpModule,
