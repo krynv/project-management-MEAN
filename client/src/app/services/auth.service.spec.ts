@@ -13,10 +13,11 @@ import { RegisterComponent } from '../components/register/register.component';
 import { LoginComponent } from '../components/login/login.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { ProfileComponent } from '../components/profile/profile.component';
+import { EditProjectComponent } from '../components/project/edit-project/edit-project.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { APP_BASE_HREF } from '@angular/common';
@@ -35,12 +36,14 @@ describe('AuthService', () => {
 			RegisterComponent,
 			LoginComponent,
 			ProfileComponent,
-			ProjectComponent
+			ProjectComponent,
+			EditProjectComponent,
 		],
 		imports: [
 			HttpModule,
 			AppRoutingModule,
 			ReactiveFormsModule,
+			FormsModule,
 			FlashMessagesModule
 		],
 		providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],

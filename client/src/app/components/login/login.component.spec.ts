@@ -17,6 +17,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { APP_BASE_HREF } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
+import { EditProjectComponent } from '../project/edit-project/edit-project.component';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -32,12 +33,14 @@ describe('LoginComponent', () => {
 				RegisterComponent,
 				LoginComponent,
 				ProfileComponent,
-				ProjectComponent
+				ProjectComponent,
+				EditProjectComponent,
 			],
 			imports: [
 				HttpModule,
 				AppRoutingModule,
 				ReactiveFormsModule,
+				FormsModule,
 				FlashMessagesModule,
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],

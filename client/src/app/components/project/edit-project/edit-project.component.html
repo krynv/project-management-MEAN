@@ -1,0 +1,32 @@
+<h1 class="page-header">Edit Project</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+	<div [ngClass]="messageClass">
+		{{ message }}
+	</div>
+</div>
+
+<form (submit)="updateProjectSubmit()" *ngIf="!loading">
+	<div class="form-group">
+		<label for="title">Title</label>
+		<input [disabled]="processing" type="text" name="title" placeholder="*Project Title" class="form-control" [(ngModel)]="project.title"
+		/>
+	</div>
+
+	<div class="form-group">
+		<label for="body">Project Description</label>
+		<textarea [disabled]="processing" name="body" rows="8" cols="80" [(ngModel)]="project.body" class="form-control" placeholder="*Project Body"></textarea>
+	</div>
+
+	<!-- Add additional edit options like project status
+		and due date -->
+
+	<!-- Add form validation -->
+
+	<a [routerLink]="['/delete-project/', project._id]">
+		<button [disabled]="processing" type="button" name="button" class="btn btn-danger">Delete</button>
+	</a>
+	<button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+	<button [disabled]="processing" type="submit" name="save" class="btn btn-info">Save Changes</button>
+
+</form>

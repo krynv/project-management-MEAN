@@ -35,4 +35,14 @@ export class ProjectService {
 		return this.http.get(`${this.domain}/projects/allProjects`, this.options).map(res => res.json());
 	}
 
+	getSingleProject(id) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/projects/singleProject/${id}`, this.options).map(res => res.json());
+	}
+
+	editProject(project) {
+		this.createAuthenticationHeaders();
+		return this.http.put(`${this.domain}/projects/updateProject/`, project, this.options).map(res => res.json());
+	}
+
 }

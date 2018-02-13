@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './services/project.service';
+import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +27,15 @@ import { ProjectService } from './services/project.service';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    ProjectComponent
+    ProjectComponent,
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     FlashMessagesModule
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard, ProjectService],

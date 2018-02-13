@@ -5,11 +5,12 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProjectComponent } from './components/project/project.component';
+import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 
@@ -34,12 +35,14 @@ describe('AppComponent', () => {
 				LoginComponent,
 				ProfileComponent,
 				ProjectComponent,
+				EditProjectComponent,
 			],
 			imports: [
 				BrowserModule,
 				HttpModule,
 				AppRoutingModule,
 				ReactiveFormsModule,
+				FormsModule,
 				FlashMessagesModule
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],

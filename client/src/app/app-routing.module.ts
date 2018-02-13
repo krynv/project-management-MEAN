@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { ProjectComponent } from './components/project/project.component';
+import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 
 const appRoutes: Routes = [
     { 
@@ -37,6 +38,11 @@ const appRoutes: Routes = [
     {
         path: 'project',
         component: ProjectComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'edit-project/:id',
+        component: EditProjectComponent,
         canActivate: [AuthGuard],
     },
     {
