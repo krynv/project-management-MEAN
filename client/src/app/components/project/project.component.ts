@@ -212,7 +212,6 @@ export class ProjectComponent implements OnInit {
 				this.message = data.message;
 				this.foundComment = true;
 				this.getAllProjects();
-				this.collapse(projectID);
 
 				setTimeout(() => {
 					this.foundComment = false;

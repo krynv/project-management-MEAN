@@ -18,8 +18,7 @@
 	<div class="form-group">
 		<label for="title">Title</label>
 		<div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
-			<input type="text" name="title" class="form-control" placeholder="*Project Title" autocomplete="off" formControlName="title"
-			/>
+			<input type="text" name="title" class="form-control" placeholder="*Project Title" autocomplete="off" formControlName="title"/>
 			<ul class="help-block">
 				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
 				<li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
