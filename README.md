@@ -6,7 +6,7 @@ Clone repo:
 
     git clone git@github.com:krynv/project-management.git && cd project-management
 
-Download dependancies: 
+Download dependencies: 
 
     npm i && npm i -g nodemon && npm i -g @angular/cli
     cd client/ && npm i
