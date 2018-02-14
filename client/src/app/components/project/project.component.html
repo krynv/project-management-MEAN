@@ -72,10 +72,19 @@
 			<strong>Due on: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
 			<br />
 			<div>
-				<strong>Individuals on task: </strong>{{ project.numberOfAssignees }} people
+				<strong>Individuals assigned to task: </strong>{{ project.numberOfAssignees }}
 				<br />
 				<strong>Status: </strong>{{ project.projectStatus }}
 				<br />
+			</div>
+
+			<div class="dropdown">
+				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success" (click)="assignToProject(project._id)">
+					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
+				</button>
+				<div class="dropdown-content">
+					<a [routerLink]="['/user/', participant]" *ngFor="let participant of project.assignees">{{ participant }}</a>
+				</div>
 			</div>
 
 			<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
@@ -86,15 +95,7 @@
 				<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
 			</a>
 
-			<div class="dropdown">
-				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success"
-				 *ngIf="username !== project.createdBy" (click)="assignToProject(project._id)">
-					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
-				</button>
-				<div class="dropdown-content">
-					<a [routerLink]="['/user/', participant]" *ngFor="let participant of project.assignees">{{ participant }}</a>
-				</div>
-			</div>
+
 		</div>
 
 		<ul class="list-group">
