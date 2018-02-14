@@ -18,6 +18,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { ProjectService } from './services/project.service';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
+import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DeleteProjectComponent } from './components/project/delete-project/dele
     ProfileComponent,
     ProjectComponent,
     EditProjectComponent,
-    DeleteProjectComponent
+    DeleteProjectComponent,
+    PublicProfileComponent
   ],
   imports: [
     BrowserModule,

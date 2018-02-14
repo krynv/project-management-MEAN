@@ -119,7 +119,13 @@ export class ProjectComponent implements OnInit {
 
 	getAllProjects() {
 		this.projectService.getAllProjects().subscribe(data => {
-			this.projects = data.projects; 
+			this.projects = data.projects;
+		});
+	}
+
+	assignToProject(id) {
+		this.projectService.assignToProject(id).subscribe(data => {
+			this.getAllProjects();
 		});
 	}
 

@@ -46,8 +46,13 @@ export class ProjectService {
 	}
 
 	deleteProject(id) {
-		this.createAuthenticationHeaders(); 
+		this.createAuthenticationHeaders();
 		return this.http.delete(`${this.domain}/projects/deleteProject/${id}`, this.options).map(res => res.json());
+	}
+
+	assignToProject(id) {
+		const projectData = { id: id };
+		return this.http.put(`${this.domain}/projects/assignToProject/`, projectData, this.options).map(res => res.json());
 	}
 
 }

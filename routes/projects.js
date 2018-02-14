@@ -158,40 +158,90 @@ module.exports = (router) => {
 	});
 
 	router.delete('/deleteProject/:id', (req, res) => {
-		
+
 		if (!req.params.id) {
-			res.json({ success: false, message: 'No id provided' }); 
+			res.json({ success: false, message: 'No id provided' });
+		} else {
+
+			Project.findOne({ _id: req.params.id }, (err, project) => {
+
+				if (err) {
+					res.json({ success: false, message: 'Invalid id' });
+				} else {
+
+					if (!project) {
+						res.json({ success: false, messasge: 'Project was not found' });
+					} else {
+
+						User.findOne({ _id: req.decoded.userId }, (err, user) => {
+
+							if (err) {
+								res.json({ success: false, message: err });
+							} else {
+
+								if (!user) {
+									res.json({ success: false, message: 'Unable to authenticate user' });
+								} else {
+
+									if (user.username !== project.createdBy) {
+										res.json({ success: false, message: 'You are not authorized to delete this project' });
+									} else {
+
+										project.remove((err) => {
+											if (err) {
+												res.json({ success: false, message: err });
+											} else {
+												res.json({ success: true, message: 'Project deleted' });
+											}
+										});
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
+
+	router.put('/assignToProject', (req, res) => {
+		
+		if (!req.body.id) {
+			res.json({ success: false, message: 'No id was provided' }); 
 		} else {
 			
-			Project.findOne({ _id: req.params.id }, (err, project) => {
+			Project.findOne({ _id: req.body.id }, (err, project) => {
 				
 				if (err) {
-					res.json({ success: false, message: 'Invalid id' }); 
+					res.json({ success: false, message: 'Invalid project id' }); 
 				} else {
 					
 					if (!project) {
-						res.json({ success: false, messasge: 'Project was not found' }); 
+						res.json({ success: false, message: 'That project was not found' }); 
 					} else {
 						
 						User.findOne({ _id: req.decoded.userId }, (err, user) => {
 							
 							if (err) {
-								res.json({ success: false, message: err }); 
+								res.json({ success: false, message: 'Something went wrong' }); 
 							} else {
 								
 								if (!user) {
-									res.json({ success: false, message: 'Unable to authenticate user' }); 
+									res.json({ success: false, message: 'Could not authenticate user' }); 
 								} else {
-									
-									if (user.username !== project.createdBy) {
-										res.json({ success: false, message: 'You are not authorized to delete this project' }); 
+									if (project.assignees.includes(user.username)) {
+										res.json({ success: false, message: 'You are already assigned to this project' }); 
 									} else {
 										
-										project.remove((err) => {
+										project.numberOfAssignees++; 
+										project.assignees.push(user.username); 
+										                 
+										project.save((err) => {
 											if (err) {
-												res.json({ success: false, message: err }); 
+												res.json({ success: false, message: 'Something went wrong' }); 
 											} else {
-												res.json({ success: true, message: 'Project deleted' });
+												res.json({ success: true, message: 'Project assigned' }); 
 											}
 										});
 									}

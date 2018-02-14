@@ -83,12 +83,11 @@
 			</a>
 
 			<div class="dropdown">
-				<button type="button" name="button" class="btn btn-sm btn-success" *ngIf="username !== project.createdBy">
-					<span class="glyphicon glyphicon-user">&nbsp;</span>Assigned to: 21 People</button>
+				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success" *ngIf="username !== project.createdBy" (click)="assignToProject(project._id)">
+					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }} 
+				</button>
 				<div class="dropdown-content">
-					<a href="#">Barry</a>
-					<a href="#">Gavin</a>
-					<a href="#">Michael</a>
+					<a [routerLink]="['/user/', participant]" *ngFor="let participant of project.assignees" >{{ participant }}</a>
 				</div>
 			</div>
 

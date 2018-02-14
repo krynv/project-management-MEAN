@@ -24,11 +24,11 @@ import { NotAuthGuard } from '../../../guards/notAuth.guard';
 import { ProjectService } from '../../../services/project.service';
 
 describe('DeleteProjectComponent', () => {
-  let component: DeleteProjectComponent;
-  let fixture: ComponentFixture<DeleteProjectComponent>;
+	let component: DeleteProjectComponent;
+	let fixture: ComponentFixture<DeleteProjectComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
 			declarations: [
 				AppComponent,
 				NavbarComponent,
@@ -50,16 +50,16 @@ describe('DeleteProjectComponent', () => {
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
 		})
-    .compileComponents();
-  }));
+			.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteProjectComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(DeleteProjectComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });
