@@ -11,6 +11,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { ProjectComponent } from '../../project/project.component';
 import { ProfileComponent } from '../../profile/profile.component';
 import { EditProjectComponent } from '../../project/edit-project/edit-project.component';
+import { PublicProfileComponent } from '../../public-profile/public-profile.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../../app-routing.module';
@@ -40,6 +41,7 @@ describe('DeleteProjectComponent', () => {
 				ProjectComponent,
 				EditProjectComponent,
 				DeleteProjectComponent,
+				PublicProfileComponent,
 			],
 			imports: [
 				HttpModule,

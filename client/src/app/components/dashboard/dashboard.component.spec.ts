@@ -11,6 +11,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { ProjectComponent } from '../project/project.component';
 import { EditProjectComponent } from '../project/edit-project/edit-project.component';
 import { DeleteProjectComponent } from '../project/delete-project/delete-project.component';
+import { PublicProfileComponent } from '../public-profile/public-profile.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../app-routing.module';
@@ -40,6 +41,7 @@ describe('DashboardComponent', () => {
 				ProjectComponent,
 				EditProjectComponent,
 				DeleteProjectComponent,
+				PublicProfileComponent,
 			],
 			imports: [
 				HttpModule,
