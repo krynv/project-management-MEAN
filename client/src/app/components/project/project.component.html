@@ -139,7 +139,7 @@
 
 				<div *ngIf="enabledComments.indexOf(project._id) > -1">
 					<li *ngFor="let comment of project.comments" class="list-group-item">
-							<strong *ngIf="username === comment.commenter && username === project.createdBy">(Project creator)</strong>
+							<strong *ngIf="comment.commenter === project.createdBy">(Project creator)</strong>
 							<strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong> {{ comment.comment }}
 						<a role="button" *ngIf="username === comment.commenter || username === project.createdBy" (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
 					</li>
