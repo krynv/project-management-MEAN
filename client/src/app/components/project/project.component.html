@@ -1,16 +1,11 @@
 <h1 class="page-header">Project Archive</h1>
 
-<div class="row show-hide-message" *ngIf="message && newProject">
+<div class="row show-hide-message" *ngIf="message && newProject || foundComment">
 	<div [ngClass]="messageClass">
 		{{ message }}
 	</div>
 </div>
 
-<div class="row show-hide-message" *ngIf="foundComment">
-	<div [ngClass]="messageClass">
-		{{ message }}
-	</div>
-</div>
 
 <button type="button" name="button" class="btn btn-warning" *ngIf="!newProject" (click)="newProjectForm()">New Project</button>
 <button [disabled]="loadingProjects" type="button" name="button" class="btn btn-default" *ngIf="!newProject" (click)="reloadProjects()">
@@ -82,10 +77,15 @@
 				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success" (click)="assignToProject(project._id)">
 					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
 				</button>
+
 				<div class="dropdown-content">
 					<a [routerLink]="['/user/', participant]" *ngFor="let participant of project.assignees">{{ participant }}</a>
 				</div>
 			</div>
+
+			<button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button" class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
+					Unassign from this project
+			</button>
 
 			<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
 				<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
@@ -139,7 +139,8 @@
 
 				<div *ngIf="enabledComments.indexOf(project._id) > -1">
 					<li *ngFor="let comment of project.comments" class="list-group-item">
-						<strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong> {{ comment.comment }}
+							<strong *ngIf="username === comment.commenter && username === project.createdBy">(Project creator)</strong>
+							<strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong> {{ comment.comment }}
 						<a role="button" *ngIf="username === comment.commenter || username === project.createdBy" (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
 					</li>
 				</div>

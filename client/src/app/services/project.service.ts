@@ -55,6 +55,11 @@ export class ProjectService {
 		return this.http.put(`${this.domain}/projects/assignToProject/`, projectData, this.options).map(res => res.json());
 	}
 
+	unassignFromProject(id) {
+		const projectData = { id: id };
+		return this.http.put(`${this.domain}/projects/unassignFromProject/`, projectData, this.options).map(res => res.json());
+	}
+
 	postComment(id, comment) {
 		this.createAuthenticationHeaders(); 
 		

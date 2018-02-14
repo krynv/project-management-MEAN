@@ -254,6 +254,59 @@ module.exports = (router) => {
 		}
 	});
 
+	router.put('/unassignFromProject', (req, res) => {
+
+		if (!req.body.id) {
+			res.json({ success: false, message: 'Project id is required' });
+		} else {
+
+			Project.findOne({ _id: req.body.id }, (err, project) => {
+
+				if (err) {
+					res.json({ success: false, message: 'Invalid project id' });
+				} else {
+
+					if (!project) {
+						res.json({ success: false, message: 'That project was not found' });
+					} else {
+
+						User.findOne({ _id: req.decoded.userId }, (err, user) => {
+
+							if (err) {
+								res.json({ success: false, message: 'Something went wrong' });
+							} else {
+
+								if (!user) {
+									res.json({ success: false, message: 'Could not authenticate user' });
+								} else {
+
+									if (!project.assignees.includes(user.username)) {
+										res.json({ success: false, message: 'You have already been unassigned from this project' });
+									} else {
+
+										project.numberOfAssignees--;
+										const arrayIndex = project.assignees.indexOf(user.username);
+										project.assignees.splice(arrayIndex, 1);
+
+										project.save((err) => {
+
+											if (err) {
+												res.json({ success: false, message: 'Something went wrong' });
+											} else {
+												res.json({ success: true, message: 'Unassigned from project' });
+											}
+										});
+									}
+
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
 	router.post('/comment', (req, res) => {
 
 		if (!req.body.comment) {
@@ -339,13 +392,13 @@ module.exports = (router) => {
 											if (user.username !== project.createdBy && user.username !== project.comments.find(comment => comment.id === req.params.commentID).commenter) {
 												res.json({ success: false, message: 'You are not authorized to delete this comment' });
 											} else {
-												Project.update({ "_id": req.params.projectID}, {$pull : { "comments":  {"_id": req.params.commentID} }}, (err) => {
+												Project.update({ "_id": req.params.projectID }, { $pull: { "comments": { "_id": req.params.commentID } } }, (err) => {
 													if (err) {
 														res.json({ success: false, message: err });
 													} else {
 														res.json({ success: true, message: 'Comment deleted' });
 													}
-												} );
+												});
 											}
 										}
 									}

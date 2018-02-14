@@ -164,6 +164,12 @@ export class ProjectComponent implements OnInit {
 		});
 	}
 
+	unassignFromProject(id) {
+		this.projectService.unassignFromProject(id).subscribe(data => {
+			this.getAllProjects();
+		});
+	}
+
 	postComment(id) {
 		this.disableCommentForm();
 		this.processing = true;
@@ -209,7 +215,8 @@ export class ProjectComponent implements OnInit {
 				this.collapse(projectID);
 
 				setTimeout(() => {
-					this.foundComment = false;			
+					this.foundComment = false;
+					this.message = false;
 				}, 2000);
 			}
 		});
