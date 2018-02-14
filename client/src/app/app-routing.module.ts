@@ -7,6 +7,10 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { ProjectComponent } from './components/project/project.component';
+import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
+import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 
 const appRoutes: Routes = [
     { 
@@ -31,6 +35,26 @@ const appRoutes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'project',
+        component: ProjectComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'edit-project/:id',
+        component: EditProjectComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'delete-project/:id',
+        component: DeleteProjectComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'user/:username',
+        component: PublicProfileComponent,
         canActivate: [AuthGuard],
     },
     {

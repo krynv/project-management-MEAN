@@ -1,8 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { ProjectService } from './project.service';
 
 import { ProjectComponent } from '../components/project/project.component';
 
@@ -25,36 +23,36 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthGuard } from '../guards/auth.guard';
 import { NotAuthGuard } from '../guards/notAuth.guard';
-import { ProjectService } from './project.service';
+import { AuthService } from './auth.service';
 
-describe('AuthService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-		declarations: [
-			AppComponent,
-			NavbarComponent,
-			HomeComponent,
-			DashboardComponent,
-			RegisterComponent,
-			LoginComponent,
-			ProfileComponent,
-			ProjectComponent,
-			EditProjectComponent,
-			DeleteProjectComponent,
-			PublicProfileComponent
-		],
-		imports: [
-			HttpModule,
-			AppRoutingModule,
-			ReactiveFormsModule,
-			FormsModule,
-			FlashMessagesModule
-		],
-		providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
+describe('ProjectService', () => {
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				AppComponent,
+				NavbarComponent,
+				HomeComponent,
+				DashboardComponent,
+				RegisterComponent,
+				LoginComponent,
+				ProfileComponent,
+				ProjectComponent,
+				EditProjectComponent,
+				DeleteProjectComponent,
+				PublicProfileComponent,
+			],
+			imports: [
+				HttpModule,
+				AppRoutingModule,
+				ReactiveFormsModule,
+				FormsModule,
+				FlashMessagesModule
+			],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
+		});
 	});
-  });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
-    expect(service).toBeTruthy();
-  }));
+	it('should be created', inject([ProjectService], (service: ProjectService) => {
+		expect(service).toBeTruthy();
+	}));
 });

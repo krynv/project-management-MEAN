@@ -8,16 +8,21 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { LoginComponent } from '../login/login.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ProjectComponent } from '../project/project.component';
+import { EditProjectComponent } from '../project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from '../project/delete-project/delete-project.component';
+import { PublicProfileComponent } from '../public-profile/public-profile.component';
 
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
+import { ProjectService } from '../../services/project.service';
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -32,15 +37,20 @@ describe('RegisterComponent', () => {
 				DashboardComponent,
 				RegisterComponent,
 				LoginComponent,
-				ProfileComponent
+				ProfileComponent,
+				ProjectComponent,
+				EditProjectComponent,
+				DeleteProjectComponent,
+				PublicProfileComponent,
 			],
 			imports: [
 				HttpModule,
 				AppRoutingModule,
 				ReactiveFormsModule,
+				FormsModule,
 				FlashMessagesModule
 			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
 		})
             .compileComponents();
     }));
