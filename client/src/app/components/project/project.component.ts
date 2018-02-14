@@ -23,6 +23,7 @@ export class ProjectComponent implements OnInit {
 	newComment = [];
 	enabledComments = [];
 	foundComment = false;
+	currentDate: number = Date.now();
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -31,6 +32,10 @@ export class ProjectComponent implements OnInit {
 	) {
 		this.createNewProjectForm();
 		this.createCommentForm();
+	}
+
+	convertToDate(dateString) {
+		return new Date(dateString);
 	}
 
 	createNewProjectForm() {
@@ -219,7 +224,6 @@ export class ProjectComponent implements OnInit {
 				}, 2000);
 			}
 		});
-
 	}
 
 	ngOnInit() {

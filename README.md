@@ -8,9 +8,8 @@ Clone repo:
 
 Download dependancies: 
 
-    npm i
-    npm i -g nodemon
-    npm i -g @angular/cli
+    npm i && npm i -g nodemon && npm i -g @angular/cli
+    cd client/ && npm i
 
 Start MongoDB:
 

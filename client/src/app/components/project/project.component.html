@@ -59,20 +59,21 @@
 		</div>
 
 		<div class="panel-footer">
-			<strong>Created by: </strong>{{ project.createdBy}}
-			<br />
-			<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
-			<br />
-			<strong>Due on: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
-			<br />
 			<div>
-				<strong>Individuals assigned to task: </strong>{{ project.numberOfAssignees }}
+				<strong>Created by: </strong>{{ project.createdBy}}
 				<br />
-				<strong>Status: </strong>{{ project.projectStatus }}
+				<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
+				<br />
+				<strong>To be completed by: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
+				<br />
+				<strong>Individuals assigned to project: </strong>{{ project.numberOfAssignees }}
+				<br />
+				<strong>Status: </strong>{{ project.projectStatus }} and {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}}
 				<br />
 			</div>
 
 			<div class="dropdown">
+				<br />
 				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success" (click)="assignToProject(project._id)">
 					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
 				</button>
@@ -99,6 +100,7 @@
 
 		<ul class="list-group">
 			<li class="list-group-item">
+				<br />
 				<button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment(project._id)" [disabled]="newComment.indexOf(project._id) > -1">Post Comment</button>
 
 				<br />
@@ -119,7 +121,6 @@
 						<button [disabled]="!commentForm.valid || processing" type="submit" name="button" class="btn btn-sm btn-info" (click)="postComment(project._id)">Post</button>
 						<button [disabled]="processing" type="button" name="button" class="btn btn-sm btn-danger" (click)="cancelSubmission(project._id)">Cancel</button>
 					</form>
-
 				</div>
 
 				<li *ngIf="enabledComments.indexOf(project._id) === -1 && project.comments.length > 0" class="list-group-item">
