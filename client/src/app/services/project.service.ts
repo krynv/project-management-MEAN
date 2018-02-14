@@ -66,4 +66,11 @@ export class ProjectService {
 		return this.http.post(`${this.domain}/projects/comment`, projectData, this.options).map(res => res.json());
 	}
 
+	deleteComment(projectID, commentID) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/projects/deleteComment/${projectID}/${commentID}`, this.options).map(res => res.json());
+	}
+
+
+
 }

@@ -255,51 +255,102 @@ module.exports = (router) => {
 	});
 
 	router.post('/comment', (req, res) => {
-		
+
 		if (!req.body.comment) {
 			res.json({ success: false, message: 'A comment message is required' });
 		} else {
-			
+
 			if (!req.body.id) {
-				res.json({ success: false, message: 'No id provided' }); 
+				res.json({ success: false, message: 'No id provided' });
 			} else {
 
 				Project.findOne({ _id: req.body.id }, (err, project) => {
-					
+
 					if (err) {
-						res.json({ success: false, message: 'Invalid project id' }); 
+						res.json({ success: false, message: 'Invalid project id' });
 					} else {
-						
+
 						if (!project) {
-							res.json({ success: false, message: 'Project not found' }); 
+							res.json({ success: false, message: 'Project not found' });
 						} else {
-							
+
 							User.findOne({ _id: req.decoded.userId }, (err, user) => {
-								
+
 								if (err) {
-									res.json({ success: false, message: 'Something went wrong' }); 
+									res.json({ success: false, message: 'Something went wrong' });
 								} else {
-									
+
 									if (!user) {
-										res.json({ success: false, message: 'User not found' }); 
+										res.json({ success: false, message: 'User not found' });
 									} else {
-										
+
 										project.comments.push({
-											comment: req.body.comment, 
-											commenter: user.username 
+											comment: req.body.comment,
+											commenter: user.username
 										});
-										
+
 										project.save((err) => {
-											
+
 											if (err) {
-												res.json({ success: false, message: 'Something went wrong' }); 
+												res.json({ success: false, message: 'Something went wrong' });
 											} else {
-												res.json({ success: true, message: 'Comment saved' }); 
+												res.json({ success: true, message: 'Comment saved' });
 											}
 										});
 									}
 								}
 							});
+						}
+					}
+				});
+			}
+		}
+	});
+
+	router.get('/deleteComment/:projectID/:commentID', (req, res) => {
+		if (!req.params.projectID) {
+			res.json({ success: false, message: 'No projectID provided' });
+		} else {
+			if (!req.params.commentID) {
+				res.json({ success: false, message: 'No commentID provided' });
+			} else {
+				Project.findOne({ _id: req.params.projectID }, (err, project) => {
+
+					if (err) {
+						res.json({ success: false, message: 'Invalid projectID' });
+					} else {
+
+						if (!project) {
+							res.json({ success: false, messasge: 'Project was not found' });
+						} else {
+							if (!project.comments.find(comment => comment.id === req.params.commentID)) {
+								res.json({ success: false, message: 'Could not find a comment with this commentID' });
+							} else {
+								User.findOne({ _id: req.decoded.userId }, (err, user) => {
+
+									if (err) {
+										res.json({ success: false, message: err });
+									} else {
+
+										if (!user) {
+											res.json({ success: false, message: 'Unable to authenticate user' });
+										} else {
+
+											if (user.username !== project.createdBy && user.username !== project.comments.find(comment => comment.id === req.params.commentID).commenter) {
+												res.json({ success: false, message: 'You are not authorized to delete this comment' });
+											} else {
+												Project.update({ "_id": req.params.projectID}, {$pull : { "comments":  {"_id": req.params.commentID} }}, (err) => {
+													if (err) {
+														res.json({ success: false, message: err });
+													} else {
+														res.json({ success: true, message: 'Comment deleted' });
+													}
+												} );
+											}
+										}
+									}
+								});
+							}
 						}
 					}
 				});

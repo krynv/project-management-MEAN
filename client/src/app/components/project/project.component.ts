@@ -13,6 +13,7 @@ export class ProjectComponent implements OnInit {
 	messageClass;
 	message;
 	newProject = false;
+
 	loadingProjects = false;
 	form;
 	commentForm;
@@ -21,6 +22,7 @@ export class ProjectComponent implements OnInit {
 	projects;
 	newComment = [];
 	enabledComments = [];
+	foundComment = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -190,6 +192,28 @@ export class ProjectComponent implements OnInit {
 	collapse(id) {
 		const index = this.enabledComments.indexOf(id);
 		this.enabledComments.splice(index, 1);
+	}
+
+	deleteComment(projectID, commentID) {
+
+		this.projectService.deleteComment(projectID, commentID).subscribe(data => {
+
+			if (!data.success) {
+				this.messageClass = 'alert alert-danger';
+				this.message = data.message;
+			} else {
+				this.messageClass = 'alert alert-success';
+				this.message = data.message;
+				this.foundComment = true;
+				this.getAllProjects();
+				this.collapse(projectID);
+
+				setTimeout(() => {
+					this.foundComment = false;			
+				}, 2000);
+			}
+		});
+
 	}
 
 	ngOnInit() {
