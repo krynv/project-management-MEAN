@@ -15,16 +15,20 @@ export class ProjectComponent implements OnInit {
 	newProject = false;
 	loadingProjects = false;
 	form;
+	commentForm;
 	processing = false;
 	username;
 	projects;
+	newComment = [];
+	enabledComments = [];
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private authService: AuthService,
-		private projectService: ProjectService
+		private projectService: ProjectService,
 	) {
 		this.createNewProjectForm();
+		this.createCommentForm();
 	}
 
 	createNewProjectForm() {
@@ -33,14 +37,33 @@ export class ProjectComponent implements OnInit {
 				Validators.required,
 				Validators.maxLength(50),
 				Validators.minLength(5),
-				this.alphaNumericValidation
+				this.alphaNumericValidation,
 			])],
+
 			body: ['', Validators.compose([
 				Validators.required,
 				Validators.maxLength(500),
 				Validators.minLength(5)
 			])]
 		})
+	}
+
+	createCommentForm() {
+		this.commentForm = this.formBuilder.group({
+			comment: ['', Validators.compose([
+				Validators.required,
+				Validators.minLength(1),
+				Validators.maxLength(200),
+			])]
+		})
+	}
+
+	enableCommentForm() {
+		this.commentForm.get('comment').enable();
+	}
+
+	disableCommentForm() {
+		this.commentForm.get('comment').disable();
 	}
 
 	enableFormNewProjectForm() {
@@ -76,8 +99,18 @@ export class ProjectComponent implements OnInit {
 		}, 4000);
 	}
 
-	draftComment() {
+	draftComment(id) {
+		this.commentForm.reset();
+		this.newComment = [];
+		this.newComment.push(id);
+	}
 
+	cancelSubmission(id) {
+		const index = this.newComment.indexOf(id);
+		this.newComment.splice(index, 1);
+		this.commentForm.reset();
+		this.enableCommentForm();
+		this.processing = false;
 	}
 
 	onProjectSubmit() {
@@ -127,6 +160,36 @@ export class ProjectComponent implements OnInit {
 		this.projectService.assignToProject(id).subscribe(data => {
 			this.getAllProjects();
 		});
+	}
+
+	postComment(id) {
+		this.disableCommentForm();
+		this.processing = true;
+		const comment = this.commentForm.get('comment').value;
+
+		this.projectService.postComment(id, comment).subscribe(data => {
+			this.getAllProjects();
+
+			const index = this.newComment.indexOf(id);
+			this.newComment.splice(index, 1);
+			
+			this.enableCommentForm();
+			this.commentForm.reset();
+			this.processing = false;
+
+			if (this.enabledComments.indexOf(id) < 0) {
+				this.expand(id);
+			}
+		});
+	}
+
+	expand(id) {
+		this.enabledComments.push(id);
+	}
+
+	collapse(id) {
+		const index = this.enabledComments.indexOf(id);
+		this.enabledComments.splice(index, 1);
 	}
 
 	ngOnInit() {

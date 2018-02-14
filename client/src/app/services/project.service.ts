@@ -55,4 +55,15 @@ export class ProjectService {
 		return this.http.put(`${this.domain}/projects/assignToProject/`, projectData, this.options).map(res => res.json());
 	}
 
+	postComment(id, comment) {
+		this.createAuthenticationHeaders(); 
+		
+		const projectData = {
+			id: id,
+			comment: comment
+		}
+		
+		return this.http.post(`${this.domain}/projects/comment`, projectData, this.options).map(res => res.json());
+	}
+
 }
