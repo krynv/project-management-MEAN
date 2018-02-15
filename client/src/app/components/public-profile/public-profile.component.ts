@@ -11,6 +11,7 @@ export class PublicProfileComponent implements OnInit {
 	currentUrl;
 	username;
 	email;
+	jobTitle;
 	foundProfile = false;
 	messageClass;
 	message;
@@ -31,6 +32,7 @@ export class PublicProfileComponent implements OnInit {
 				this.foundProfile = true;
 				this.username = data.user.username; 
 				this.email = data.user.email; 
+				this.jobTitle = data.user.jobTitle;
 			}
 		});
 	}
