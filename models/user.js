@@ -66,6 +66,48 @@ let validPasswordChecker = (password) => {
     }
 }
 
+let validNameChecker = (name) => {
+    if (!name) {
+        return false;
+    } else {
+        const regExp = new RegExp(/\b([A-Z]{1}[a-z]{1,30}[- ]{0,1}|[A-Z]{1}[- \']{1}[A-Z]{0,1}[a-z]{1,30}[- ]{0,1}|[a-z]{1,2}[ -\']{1}[A-Z]{1}[a-z]{1,30}){2,5}/);
+        return regExp.test(name);
+    }
+}
+
+let nameLengthChecker = (name) => {
+    if (!name) {
+        return false;
+    } else {
+        if (name.length < 1 || name.length > 35) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+let jobTitleChecker = (jobTitle) => {
+    if (!jobTitle) {
+        return false;
+    } else {
+        const regExp = RegExp(/^([a-zA-Z ]){1,35}$/);
+        return regExp.test(jobTitle);
+    }
+}
+
+let jobLengthChecker = (jobTitle) => {
+    if (!jobTitle) {
+        return false;
+    } else {
+        if (jobTitle.length < 1 || jobTitle.length > 35) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
 const emailValidators = [
     {
         validator: emailLengthChecker, 
@@ -88,6 +130,17 @@ const usernameValidators = [
     }
 ];
 
+const nameValidators = [
+    {
+        validator: validNameChecker,
+        message: 'Must be a real name',
+    },
+    {
+        validator: nameLengthChecker,
+        message: 'Must be at least 1 letter long but no more than 35',
+    }
+];
+
 const passwordValidators = [
     {
         validator: passwordLengthChecker,
@@ -99,7 +152,22 @@ const passwordValidators = [
     }
 ];
 
+const jobTitleValidators = [
+    {
+        validator: jobTitleChecker,
+        message: 'Must be a valid job title',
+    },
+    {
+        validator: jobLengthChecker,
+        message: 'Must be at least 1 letter long but no more than 35',
+    },
+];
+
 const userSchema = new Schema({
+    admin: {
+        type: Boolean,
+        default: false,
+    },
     email: {
         type: String,
         required: true,
@@ -113,6 +181,16 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         validate: usernameValidators,
+    },
+    fullName: {
+        type: String,
+        required: true,
+        validate: nameValidators,
+    },
+    jobTitle: {
+        type: String,
+        required: true,
+        validate: jobTitleValidators,
     },
     password: {
         type: String,
