@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
 
 	validatePassword(controls) {
 
-		const regExp = new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,35}$/);
+		const regExp = new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,60}$/);
 
 		if (regExp.test(controls.value)) {
 			return null;

@@ -236,12 +236,25 @@ module.exports = (router) => {
 
 										project.numberOfAssignees++;
 										project.assignees.push(user.username);
-
+										
 										project.save((err) => {
 											if (err) {
 												res.json({ success: false, message: 'Something went wrong' });
 											} else {
-												res.json({ success: true, message: 'Project assigned' });
+												User.update({ "_id": req.decoded.userId }, { $push: { "participatingProjects": project  } }, (err) => {
+													if (err) {
+														res.json({ success: false, message: err });
+													} else {
+
+														User.update({ "_id": req.decoded.userId }, { $inc: { "numberOfParticipatingProjects": 1  } }, (err) => {
+															if (err) {
+																res.json({ success: false, message: err });
+															} else {
+																res.json({ success: true, message: 'Project assigned' });
+															}
+														});
+													}
+												});
 											}
 										});
 									}
@@ -289,11 +302,22 @@ module.exports = (router) => {
 										project.assignees.splice(arrayIndex, 1);
 
 										project.save((err) => {
-
 											if (err) {
 												res.json({ success: false, message: 'Something went wrong' });
 											} else {
-												res.json({ success: true, message: 'Unassigned from project' });
+												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id }} }, (err) => {
+													if (err) {
+														res.json({ success: false, message: err });
+													} else {
+														User.update({ "_id": req.decoded.userId }, { $inc: { "numberOfParticipatingProjects": -1  } }, (err) => {
+															if (err) {
+																res.json({ success: false, message: err });
+															} else {
+																res.json({ success: true, message: 'Unassigned from project' });
+															}
+														});
+													}
+												});
 											}
 										});
 									}

@@ -65,7 +65,7 @@
 			<input type="password" name="password" class="form-control" autocomplete="off" placeholder="*Password" formControlName="password"/>
 			<ul class="help-block">
 				<li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required</li>
-				<li *ngIf="form.controls.password.errors?.minlength && form.controls.password.dirty || form.controls.password.errors?.maxlength && form.controls.password.dirty ">Password must be at least 8 characters long, but no more than 35</li>
+				<li *ngIf="form.controls.password.errors?.minlength && form.controls.password.dirty || form.controls.password.errors?.maxlength && form.controls.password.dirty ">Password must be at least 8 characters long, but no more than 60</li>
 				<li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must contain at least: 1 special character, 1 uppercase letter, 1 lowercase letter and 1 number</li>
 			</ul>
 		</div>

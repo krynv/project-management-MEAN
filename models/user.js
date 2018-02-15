@@ -49,7 +49,7 @@ let passwordLengthChecker = (password) => {
     if (!password) {
         return false;
     } else {
-        if (password.length < 8 || password.length > 35) {
+        if (password.length < 8 || password.length > 60) {
             return false;
         } else {
             return true;
@@ -144,12 +144,12 @@ const nameValidators = [
 const passwordValidators = [
     {
         validator: passwordLengthChecker,
-        message: 'Password must be at least 8 characters long but no more than 35',
+        message: 'Password must be at least 8 characters long but no more than 60',
     },
-    {
-        validator: validPasswordChecker,
-        message: 'Password must contain at least: 1 special character, 1 uppercase letter, 1 lowercase letter and 1 number',
-    }
+    // {
+    //     validator: validPasswordChecker,
+    //     message: 'Password must contain at least: 1 special character, 1 uppercase letter, 1 lowercase letter and 1 number',
+    // }
 ];
 
 const jobTitleValidators = [
@@ -196,6 +196,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
         validate: passwordValidators,
+    },
+    participatingProjects: {
+        type: Array,
+    },
+    numberOfParticipatingProjects: {
+        type: Number,
+        default: 0,
     }
 });
 
