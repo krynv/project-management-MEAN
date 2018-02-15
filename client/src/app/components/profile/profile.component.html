@@ -1,7 +1,45 @@
 <h2 class="page-header">Profile Page</h2>
 <ul class="list-group">
-  <li class="list-group-item">Username: {{ username }}</li>
-  <li class="list-group-item">Email: {{ email }}</li>
-  <li class="list-group-item">Full Name: {{ fullName }}</li>
-  <li class="list-group-item">Job Title: {{ jobTitle }}</li>
+	<li class="list-group-item">Username: {{ username }}</li>
+	<li class="list-group-item">Email: {{ email }}</li>
+	<li class="list-group-item">Full Name: {{ fullName }}</li>
+	<li class="list-group-item">Job Title: {{ jobTitle }}</li>
 </ul>
+
+<h2  class="page-header">My Projects</h2>
+<div class="panel panel-primary" *ngFor="let project of participatingProjects">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ project.title }}</h3>
+	</div>
+
+	<div class="panel-body">
+		{{ project.body }}
+	</div>
+
+	<div class="panel-footer">
+		<div>
+			<strong>Created by: </strong>{{ project.createdBy}}
+			<br />
+			<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
+			<br />
+			<strong>To be completed by: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
+			<br />
+			<strong>Individuals assigned to project: </strong>{{ project.numberOfAssignees }}
+			<br />
+			<strong>Status: </strong>{{ project.projectStatus }} and {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}} <br />
+		</div>
+
+		<button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button" class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
+			Unassign from this project
+		</button>
+
+		<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
+			<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
+		</a>
+
+		<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy">
+			<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
+		</a>
+
+
+	</div>

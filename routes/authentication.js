@@ -164,7 +164,7 @@ module.exports = (router) => {
 
 
 	router.get('/profile', (req, res) => {
-		User.findOne({ _id: req.decoded.userId }).select('username email fullName jobTitle').exec((err, user) => {
+		User.findOne({ _id: req.decoded.userId }).select('username email fullName jobTitle participatingProjects').exec((err, user) => {
 			if (err) {
 				res.json({ success: false, message: err });
 			} else {
