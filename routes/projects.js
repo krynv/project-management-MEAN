@@ -186,12 +186,17 @@ module.exports = (router) => {
 									if (user.username !== project.createdBy) {
 										res.json({ success: false, message: 'You are not authorized to delete this project' });
 									} else {
-
 										project.remove((err) => {
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {
-												res.json({ success: true, message: 'Project deleted' });
+												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id }} }, (err) => {
+													if (err) {
+														res.json({ success: false, message: err });
+													} else {
+														res.json({ success: true, message: 'Project deleted' });	
+													}
+												});
 											}
 										});
 									}
