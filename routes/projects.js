@@ -136,6 +136,7 @@ module.exports = (router) => {
 									} else {
 										project.title = req.body.title;
 										project.body = req.body.body;
+
 										project.save((err) => {
 											if (err) {
 												if (err.errors) {
@@ -144,7 +145,29 @@ module.exports = (router) => {
 													res.json({ success: false, message: err });
 												}
 											} else {
-												res.json({ success: true, message: 'Project updated' });
+
+												User.update(
+												{ 
+													"participatingProjects" : { 
+														$elemMatch : { 
+															"_id": project._id 
+														} 
+													} 
+												}, 
+												{ 
+													$set: { 
+														"participatingProjects.$.title": req.body.title,
+														"participatingProjects.$.body" : req.body.body
+													} 
+												}, 
+												(err) => {
+													if (err) {
+														console.log(err);
+														res.json({ success: false, message: err });
+													} else {
+														res.json({ success: true, message: 'Project updated' });
+													}
+												});
 											}
 										});
 									}
@@ -424,6 +447,76 @@ module.exports = (router) => {
 					}
 				});
 			}
+		}
+	});
+
+	router.get('/setProjectStatus/:projectID/:status', (req, res) => {
+		
+		if (!req.params.projectID) {
+			res.json({ success: false, message: 'Project id is required' });
+		} else {
+
+			Project.findOne({ _id: req.params.projectID }, (err, project) => {
+
+				if (err) {
+					res.json({ success: false, message: 'Not a valid project id' });
+				} else {
+
+					if (!project) {
+						res.json({ success: false, message: 'Project id was not found' });
+					} else {
+
+						User.findOne({ _id: req.decoded.userId }, (err, user) => {
+
+							if (err) {
+								res.json({ success: false, message: err });
+							} else {
+
+								if (!user) {
+									res.json({ success: false, message: 'Unable to authenticate user' });
+								} else {
+
+									if (user.username !== project.createdBy) {
+										res.json({ success: false, message: 'You are not authorized to edit this project' });
+									} else {
+										Project.update({ "_id": req.params.projectID }, { $set: { "projectStatus": req.params.status } }, (err) => {
+											if (err) {
+												res.json({ success: false, message: err });
+											} else {
+
+												User.update( 
+													{ "participatingProjects" : 
+													{ 
+														$elemMatch : 
+														{ 
+															"_id": project._id 
+														} 
+													} }, 
+													{ 
+														$set : 
+														{ 
+															"participatingProjects.$.projectStatus" : req.params.status 
+														}  
+													}, 
+													{ 
+														multi: true 
+													}, 
+												(err) => {
+													if (err) {
+														res.json({ success: false, message: err });
+													} else {
+														res.json({ success: true, message: 'Status updated' });
+													}
+												});
+											}
+										});
+									}
+								}
+							}
+						});
+					}
+				}
+			});
 		}
 	});
 

@@ -9,6 +9,9 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProfileComponent implements OnInit {
 
+	messageClass;
+	message;
+
 	username = '';
 	email = '';
 	fullName = '';
@@ -37,6 +40,22 @@ export class ProfileComponent implements OnInit {
 	unassignFromProject(id) {
 		this.projectService.unassignFromProject(id).subscribe(data => {
 			this.getAllProjects();
+		});
+	}
+
+	setProjectStatus(projectID, status) {
+		this.projectService.setProjectStatus(projectID, status).subscribe(data => {
+			if (!data.success) {
+				this.messageClass = 'alert alert-danger'; 
+				this.message = data.message; 
+			} else {
+				this.getAllProjects();
+				
+				setTimeout(() => {
+					this.messageClass = 'alert alert-success'; 
+					this.message = false;
+				}, 2000);
+			}
 		});
 	}
 	

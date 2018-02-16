@@ -76,6 +76,8 @@ export class ProjectService {
 		return this.http.get(`${this.domain}/projects/deleteComment/${projectID}/${commentID}`, this.options).map(res => res.json());
 	}
 
-
-
+	setProjectStatus(projectID, status) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/projects/setProjectStatus/${projectID}/${status}`, this.options).map(res => res.json());
+	}
 }

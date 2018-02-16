@@ -1,4 +1,11 @@
 <h2 class="page-header">Profile Page</h2>
+
+<div class="row show-hide-message" *ngIf="message">
+		<div [ngClass]="messageClass">
+			{{ message }}
+		</div>
+	</div>
+
 <ul class="list-group">
 	<li class="list-group-item">Username: {{ username }}</li>
 	<li class="list-group-item">Email: {{ email }}</li>
@@ -32,6 +39,20 @@
 		<button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button" class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
 			Unassign from this project
 		</button>
+
+		
+		<div class="dropdown">
+			<br />
+			<button *ngIf="username === project.createdBy" type="button" name="button" class="btn btn-sm btn-warning">
+				<span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
+			</button>
+
+			<div class="dropdown-content">
+				<a role="button" (click)="setProjectStatus(project._id, 'Not Started')">Not Started</a>
+				<a role="button" (click)="setProjectStatus(project._id, 'In Progress')">In Progress</a>
+				<a role="button" (click)="setProjectStatus(project._id, 'Completed')">Completed</a>
+			</div>
+		</div>
 
 		<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
 			<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>

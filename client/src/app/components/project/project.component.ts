@@ -206,7 +206,6 @@ export class ProjectComponent implements OnInit {
 	}
 
 	deleteComment(projectID, commentID) {
-
 		this.projectService.deleteComment(projectID, commentID).subscribe(data => {
 
 			if (!data.success) {
@@ -220,6 +219,22 @@ export class ProjectComponent implements OnInit {
 
 				setTimeout(() => {
 					this.foundComment = false;
+					this.message = false;
+				}, 2000);
+			}
+		});
+	}
+
+	setProjectStatus(projectID, status) {
+		this.projectService.setProjectStatus(projectID, status).subscribe(data => {
+			if (!data.success) {
+				this.messageClass = 'alert alert-danger'; 
+				this.message = data.message; 
+			} else {
+				this.getAllProjects();
+				
+				setTimeout(() => {
+					this.messageClass = 'alert alert-success'; 
 					this.message = false;
 				}, 2000);
 			}
