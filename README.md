@@ -25,7 +25,7 @@ Start express server:
 
 Start client:
 
-    cd client/ && ng serve
+    cd client/ && npm start
 
 Access API on port `1337`
 
