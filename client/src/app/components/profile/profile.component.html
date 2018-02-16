@@ -65,4 +65,4 @@
 		</a>
 
 	</div>
-	<div *ngIf="last && username === project.createdBy" class="spacer"></div> <!-- Due to dropdown extending the page, we want the user to click the button without having to scroll -->
+	<div *ngIf="last && username === project.createdBy || admin" class="spacer"></div> <!-- Due to dropdown extending the page, we want the user to click the button without having to scroll -->
