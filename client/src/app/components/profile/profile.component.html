@@ -1,11 +1,12 @@
 <h2 class="page-header">Profile Page</h2>
 
 <div class="row show-hide-message" *ngIf="message">
-		<div [ngClass]="messageClass">
-			{{ message }}
-		</div>
+	<div [ngClass]="messageClass">
+		{{ message }}
 	</div>
+</div>
 
+<h3 class="page-header">Personal Details:</h3>
 <ul class="list-group">
 	<li class="list-group-item">Username: {{ username }}</li>
 	<li class="list-group-item">Email: {{ email }}</li>
@@ -13,8 +14,8 @@
 	<li class="list-group-item">Job Title: {{ jobTitle }}</li>
 </ul>
 
-<h2  class="page-header">Projects I participate in:</h2>
-<div class="panel panel-primary" *ngFor="let project of participatingProjects">
+<h3 class="page-header">Projects I participate in:</h3>
+<div class="panel panel-primary" *ngFor="let project of participatingProjects; let last = last;">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ project.title }}</h3>
 	</div>
@@ -36,13 +37,13 @@
 			<strong>Status: </strong>{{ project.projectStatus }} and {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}} <br />
 		</div>
 
+		<br />
 		<button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button" class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
 			Unassign from this project
 		</button>
 
 		
 		<div class="dropdown">
-			<br />
 			<button *ngIf="username === project.createdBy" type="button" name="button" class="btn btn-sm btn-warning">
 				<span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
 			</button>
@@ -53,6 +54,7 @@
 				<a role="button" (click)="setProjectStatus(project._id, 'Completed')">Completed</a>
 			</div>
 		</div>
+		
 
 		<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
 			<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
@@ -62,5 +64,5 @@
 			<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
 		</a>
 
-
 	</div>
+	<div *ngIf="last" class="spacer"></div> <!-- Due to dropdown extending the page, we want the user to click the button without having to scroll -->
