@@ -1,4 +1,4 @@
-<h2 class="page-header">Profile Page</h2>
+<h1 class="page-header">Profile Page</h1>
 
 <div class="row show-hide-message" *ngIf="message">
 	<div [ngClass]="messageClass">
@@ -14,7 +14,7 @@
 	<li class="list-group-item">Job Title: {{ jobTitle }}</li>
 </ul>
 
-<h3 class="page-header">Projects I participate in:</h3>
+<h3 *ngIf="participatingProjects.length !== 0" class="page-header">Projects I participate in:</h3>
 <div class="panel panel-primary" *ngFor="let project of participatingProjects; let last = last;">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ project.title }}</h3>
