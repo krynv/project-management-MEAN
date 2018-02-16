@@ -190,11 +190,12 @@ module.exports = (router) => {
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {
-												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id }} }, (err) => {
+												User.update( { "participatingProjects" : { $elemMatch : { "_id": project._id } } }, { $pull : { "participatingProjects" : { "_id": project._id } } },{multi: true}, (err) => {
+
 													if (err) {
 														res.json({ success: false, message: err });
 													} else {
-														res.json({ success: true, message: 'Project deleted' });	
+														res.json({ success: true, message: 'Project deleted' });
 													}
 												});
 											}
@@ -241,23 +242,16 @@ module.exports = (router) => {
 
 										project.numberOfAssignees++;
 										project.assignees.push(user.username);
-										
+
 										project.save((err) => {
 											if (err) {
 												res.json({ success: false, message: 'Something went wrong' });
 											} else {
-												User.update({ "_id": req.decoded.userId }, { $push: { "participatingProjects": project  } }, (err) => {
+												User.update({ "_id": req.decoded.userId }, { $push: { "participatingProjects": project } }, (err) => {
 													if (err) {
 														res.json({ success: false, message: err });
 													} else {
-
-														User.update({ "_id": req.decoded.userId }, { $inc: { "numberOfParticipatingProjects": 1  } }, (err) => {
-															if (err) {
-																res.json({ success: false, message: err });
-															} else {
-																res.json({ success: true, message: 'Project assigned' });
-															}
-														});
+														res.json({ success: true, message: 'Project assigned' });
 													}
 												});
 											}
@@ -310,23 +304,16 @@ module.exports = (router) => {
 											if (err) {
 												res.json({ success: false, message: 'Something went wrong' });
 											} else {
-												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id }} }, (err) => {
+												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id } } }, (err) => {
 													if (err) {
 														res.json({ success: false, message: err });
 													} else {
-														User.update({ "_id": req.decoded.userId }, { $inc: { "numberOfParticipatingProjects": -1  } }, (err) => {
-															if (err) {
-																res.json({ success: false, message: err });
-															} else {
-																res.json({ success: true, message: 'Unassigned from project' });
-															}
-														});
+														res.json({ success: true, message: 'Unassigned from project' });
 													}
 												});
 											}
 										});
 									}
-
 								}
 							}
 						});

@@ -200,10 +200,6 @@ const userSchema = new Schema({
     participatingProjects: {
         type: Array,
     },
-    numberOfParticipatingProjects: {
-        type: Number,
-        default: 0,
-    }
 });
 
 userSchema.pre('save', function (next) {
