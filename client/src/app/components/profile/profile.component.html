@@ -44,7 +44,7 @@
 
 		
 		<div class="dropdown">
-			<button *ngIf="username === project.createdBy" type="button" name="button" class="btn btn-sm btn-warning">
+			<button *ngIf="username === project.createdBy || admin" type="button" name="button" class="btn btn-sm btn-warning">
 				<span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
 			</button>
 
@@ -56,13 +56,13 @@
 		</div>
 		
 
-		<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
+		<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy || admin">
 			<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
 		</a>
 
-		<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy">
+		<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy || admin">
 			<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
 		</a>
 
 	</div>
-	<div *ngIf="last" class="spacer"></div> <!-- Due to dropdown extending the page, we want the user to click the button without having to scroll -->
+	<div *ngIf="last && username === project.createdBy" class="spacer"></div> <!-- Due to dropdown extending the page, we want the user to click the button without having to scroll -->

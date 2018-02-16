@@ -88,7 +88,7 @@
 
 			<div class="dropdown">
 				<br />
-				<button *ngIf="username === project.createdBy" type="button" name="button" class="btn btn-sm btn-warning">
+				<button *ngIf="username === project.createdBy || admin" type="button" name="button" class="btn btn-sm btn-warning">
 					<span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
 				</button>
 
@@ -99,11 +99,11 @@
 				</div>
 			</div>
 
-			<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy">
+			<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy || admin">
 				<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
 			</a>
 
-			<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy">
+			<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy || admin">
 				<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
 			</a>
 
@@ -153,7 +153,7 @@
 					<li *ngFor="let comment of project.comments" class="list-group-item">
 							<strong *ngIf="comment.commenter === project.createdBy">(Project creator)</strong>
 							<strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong> {{ comment.comment }}
-						<a role="button" *ngIf="username === comment.commenter || username === project.createdBy" (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
+						<a role="button" *ngIf="username === comment.commenter || username === project.createdBy || admin" (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
 					</li>
 				</div>
 		</ul>

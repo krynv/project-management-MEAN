@@ -90,8 +90,8 @@ module.exports = (router) => {
 
 								} else {
 
-									if (user.username !== project.createdBy) {
-										res.json({ success: false, message: 'You are not authorized to edit this project' }); // Return authentication reror
+									if (user.username !== project.createdBy && !user.admin) {
+										res.json({ success: false, message: 'You are not authorized to edit this project' }); // Return authentication error
 									} else {
 										res.json({ success: true, project: project });
 									}
@@ -131,7 +131,9 @@ module.exports = (router) => {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
 
-									if (user.username !== project.createdBy) {
+									if (user.username !== project.createdBy && !user.admin) {
+										// future me! listen. you need to 
+										// check if admin after this initial if
 										res.json({ success: false, message: 'You are not authorized to edit this project' });
 									} else {
 										project.title = req.body.title;
@@ -205,7 +207,7 @@ module.exports = (router) => {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
 
-									if (user.username !== project.createdBy) {
+									if (user.username !== project.createdBy && !user.admin) {
 										res.json({ success: false, message: 'You are not authorized to delete this project' });
 									} else {
 										project.remove((err) => {
@@ -427,7 +429,7 @@ module.exports = (router) => {
 											res.json({ success: false, message: 'Unable to authenticate user' });
 										} else {
 
-											if (user.username !== project.createdBy && user.username !== project.comments.find(comment => comment.id === req.params.commentID).commenter) {
+											if (user.username !== project.createdBy && user.username !== project.comments.find(comment => comment.id === req.params.commentID).commenter && !user.admin) {
 												res.json({ success: false, message: 'You are not authorized to delete this comment' });
 											} else {
 												Project.update({ "_id": req.params.projectID }, { $pull: { "comments": { "_id": req.params.commentID } } }, (err) => {
@@ -475,7 +477,7 @@ module.exports = (router) => {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
 
-									if (user.username !== project.createdBy) {
+									if (user.username !== project.createdBy && !user.admin) {
 										res.json({ success: false, message: 'You are not authorized to edit this project' });
 									} else {
 										Project.update({ "_id": req.params.projectID }, { $set: { "projectStatus": req.params.status } }, (err) => {

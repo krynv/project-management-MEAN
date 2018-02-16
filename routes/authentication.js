@@ -5,7 +5,6 @@ const config = require('../config/database.config');
 module.exports = (router) => {
 
 	router.post('/register', (req, res) => {
-
 		if (!req.body.email) {
 			res.json({ success: false, message: 'You must provide an email' });
 		} else {
@@ -162,9 +161,8 @@ module.exports = (router) => {
 		}
 	});
 
-
 	router.get('/profile', (req, res) => {
-		User.findOne({ _id: req.decoded.userId }).select('username email fullName jobTitle participatingProjects').exec((err, user) => {
+		User.findOne({ _id: req.decoded.userId }).select('admin username email fullName jobTitle participatingProjects').exec((err, user) => {
 			if (err) {
 				res.json({ success: false, message: err });
 			} else {
@@ -172,12 +170,10 @@ module.exports = (router) => {
 					res.json({ success: false, message: 'User not found' });
 				} else {
 					res.json({ success: true, user: user });
-					
 				}
 			}
 		});
 	});
-
 
 	router.get('/publicProfile/:username', (req, res) => {
 		if (!req.params.username) {

@@ -19,6 +19,7 @@ export class ProjectComponent implements OnInit {
 	commentForm;
 	processing = false;
 	username;
+	admin = false;
 	projects;
 	newComment = [];
 	enabledComments = [];
@@ -232,7 +233,7 @@ export class ProjectComponent implements OnInit {
 				this.message = data.message; 
 			} else {
 				this.getAllProjects();
-				
+
 				setTimeout(() => {
 					this.messageClass = 'alert alert-success'; 
 					this.message = false;
@@ -244,6 +245,7 @@ export class ProjectComponent implements OnInit {
 	ngOnInit() {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
+			this.admin = profile.user.admin;
 		});
 
 		this.getAllProjects();

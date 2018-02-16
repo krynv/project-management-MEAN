@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
 	email = '';
 	fullName = '';
 	jobTitle = '';
+	admin = false;
 	participatingProjects;
 
 	constructor(
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
 	getAllProjects() {
 		this.authService.getProfile().subscribe(profile => {
+			this.admin = profile.user.admin;
 			this.username = profile.user.username;
 			this.email = profile.user.email;
 			this.fullName = profile.user.fullName;
