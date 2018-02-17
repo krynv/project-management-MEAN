@@ -111,12 +111,16 @@ export class EditPasswordComponent implements OnInit {
 		this.currentUrl = this.activatedRoute.snapshot.params;
 
 		this.userService.singleUserForPasswordChange(this.currentUrl.id).subscribe(data => {
-
-			if (!data.success) {
-				this.messageClass = 'alert alert-danger';
-				this.message = data.message;
+			
+			if (data.user.username != JSON.parse(localStorage.getItem('user')).username) {
+				this.router.navigate(['/dashboard']);
 			} else {
-				this.user = data.user;
+				if (!data.success) {
+					this.messageClass = 'alert alert-danger';
+					this.message = data.message;
+				} else {
+					this.user = data.user;
+				}
 			}
 		});
 	}

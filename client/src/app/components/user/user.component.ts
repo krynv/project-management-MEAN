@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-user',
@@ -13,7 +14,11 @@ export class UserComponent implements OnInit {
 	users;
 	loadingUsers = false;
 
-	constructor(private authService: AuthService, private userService: UserService) { }
+	constructor(
+		private authService: AuthService, 
+		private userService: UserService,
+		private router: Router,
+	) { }
 
 	isAdmin() {
 		return this.admin;
@@ -37,6 +42,10 @@ export class UserComponent implements OnInit {
 	ngOnInit() {
 		this.authService.getProfile().subscribe(profile => {
 			this.admin = profile.user.admin;
+			
+			if (!profile.user.admin) {
+				this.router.navigate(['/dashboard']);
+			} 
 		});
 
 		this.getAllUsers();

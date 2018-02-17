@@ -92,8 +92,8 @@ module.exports = (router) => {
 								if (!currentUser) {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
-									
-									if (!req.body._id == req.decoded.userId) { // check if the person updating the password is in fact the account holder
+									console.log(`\nuser: ${user}\n\nreq.body._id: ${req.body._id}\n\nreq.decoded.userId: ${req.decoded.userId}`);
+									if (!user._id == req.body._id) { // check if the person updating the password is in fact the account holder
 										res.json({ success: false, message: 'You are not authorized to edit this user password' }); // Return authentication error
 									} else {
 

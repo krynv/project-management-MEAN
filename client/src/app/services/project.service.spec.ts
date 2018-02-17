@@ -17,6 +17,7 @@ import { PublicProfileComponent } from '../components/public-profile/public-prof
 import { UserComponent } from '../components/user/user.component';
 import { EditUserComponent } from '../components/user/edit-user/edit-user.component';
 import { DeleteUserComponent } from '../components/user/delete-user/delete-user.component';
+import { EditPasswordComponent } from '../components/profile/edit-password/edit-password.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -47,7 +48,8 @@ describe('ProjectService', () => {
 				PublicProfileComponent,
 				UserComponent,
 				EditUserComponent,
-				DeleteUserComponent
+				DeleteUserComponent,
+				EditPasswordComponent,
 			],
 			imports: [
 				BrowserModule,
