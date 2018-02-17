@@ -1,1 +1,50 @@
-<h1 class="page-header">Dashboard Route</h1>
+<h1 class="page-header">Dashboard</h1>
+
+<a *ngIf="authService.loggedIn()" routerLink="/project" class="btn btn-default">Project Management</a>
+<a *ngIf="authService.loggedIn() && isAdmin()" routerLink="/users" class="btn btn-default">User Management</a>
+
+<br />
+<br />
+<br />
+<h4>This service utilises:</h4>
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="http://assets.stickpng.com/thumbs/58481021cef1014c0b5e494b.png" alt="MongoDB logo image" width="140" height="140">
+            <div class="caption">
+                <h3>MongoDB</h3>
+                <p>MongoDB is a free and open-source cross-platform document-oriented database program. This NoSQL database program uses JSON-like documents with schemas.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class=thumbnail>
+            <img src="https://uploads.toptal.io/blog/category/logo/25/express_js.png" alt="ExpressJS logo image" width="140" height="140">
+            <div class=caption>
+                <h3>ExpressJS</h3>
+                <p>Express.js is a Node.js framework. Node.js is a platform that allows JavaScript to be used outside the Web Browsers, for creating web and network applications.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class=thumbnail>
+            <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular 2 logo image" width="140" height="140">
+            <div class=caption>
+                <h3>Angular 2</h3>
+                <p>Angular is a development platform for building mobile and desktop web applications.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class=thumbnail>
+            <img src="https://glenneggleton.com/files/2016-02/nodejs-logo.png" alt="NodeJS logo image" width="140" height="140">
+            <div class=caption>
+                <h3>NodeJS</h3>
+                <p>Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.</p>
+            </div>
+        </div>
+    </div>       
+</div>

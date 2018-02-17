@@ -14,39 +14,58 @@ module.exports = (router) => {
 				if (!req.body.password) {
 					res.json({ success: false, message: 'You must provide a password' });
 				} else {
-					let user = new User({
-						email: req.body.email.toLowerCase(),
-						username: req.body.username.toLowerCase(),
-						password: req.body.password,
-					});
+					if (!req.body.fullName) {
+						res.json({ success: false, message: 'You must provide a name' });
+					} else {
+						if (!req.body.jobTitle) {
+							res.json({ success: false, message: 'You must provide a job title' });
+						}
+						else {
+							let user = new User({
+								email: req.body.email.toLowerCase(),
+								username: req.body.username.toLowerCase(),
+								fullName: req.body.fullName,
+								jobTitle: req.body.jobTitle,
+								password: req.body.password,
+							});
 
-					user.save((err) => {
-						if (err) {
-							if (err.code === 11000) {
-								res.json({ success: false, message: 'Username or email already exists' });
-							} else {
-								if (err.errors) {
-									if (err.errors.email) {
-										res.json({ success: false, message: err.errors.email.message });
+							user.save((err) => {
+								if (err) {
+									if (err.code === 11000) {
+										res.json({ success: false, message: 'Username or email already exists' });
 									} else {
-										if (err.errors.username) {
-											res.json({ success: false, message: err.errors.username.message });
-										} else {
-											if (err.errors.password) {
-												res.json({ success: false, message: err.errors.password.message });
+										if (err.errors) {
+											if (err.errors.email) {
+												res.json({ success: false, message: err.errors.email.message });
 											} else {
-												res.json({ success: false, message: err });
+												if (err.errors.username) {
+													res.json({ success: false, message: err.errors.username.message });
+												} else {
+													if (err.errors.fullName) {
+														res.json({ success: false, message: err.errors.fullName.message });
+													} else {
+														if (err.errors.jobTitle) {
+															res.json({ success: false, message: err.errors.jobTitle.message });
+														} else {
+															if (err.errors.password) {
+																res.json({ success: false, message: err.errors.password.message });
+															} else {
+																res.json({ success: false, message: err });
+															}
+														}
+													}
+												}
 											}
+										} else {
+											res.json({ success: false, message: 'Could not save user. Error', err });
 										}
 									}
 								} else {
-									res.json({ success: false, message: 'Could not save user. Error', err });
+									res.json({ success: true, message: 'Account registered!' });
 								}
-							}
-						} else {
-							res.json({ success: true, message: 'Account registered!' });
+							});
 						}
-					});
+					}
 				}
 			}
 
@@ -142,9 +161,8 @@ module.exports = (router) => {
 		}
 	});
 
-
 	router.get('/profile', (req, res) => {
-		User.findOne({ _id: req.decoded.userId }).select('username email').exec((err, user) => {
+		User.findOne({ _id: req.decoded.userId }).select('admin username email fullName jobTitle participatingProjects').exec((err, user) => {
 			if (err) {
 				res.json({ success: false, message: err });
 			} else {
@@ -157,12 +175,11 @@ module.exports = (router) => {
 		});
 	});
 
-
 	router.get('/publicProfile/:username', (req, res) => {
 		if (!req.params.username) {
 			res.json({ success: false, message: 'No username provided' }); 
 		} else {
-			User.findOne({ username: req.params.username }).select('username email').exec((err, user) => { // user email for contact
+			User.findOne({ username: req.params.username }).select('username email jobTitle').exec((err, user) => { // user email for contact
 				if (err) {
 					res.json({ success: false, message: 'Something went wrong' }); 
 				} else {

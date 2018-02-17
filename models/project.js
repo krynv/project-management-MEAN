@@ -66,10 +66,9 @@ let commentLengthChecker = (comment) => {
 	}
 };
 
-
 const commentValidators = [
 	{
-		validator: commentLengthChecker,
+		validator: commentLengthChecker, 
 		message: 'Comments may not exceed 200 characters.'
 	}
 ];
@@ -111,7 +110,7 @@ const projectSchema = new Schema({
 	comments: [{
 		comment: { 
 			type: String, 
-			validate: commentValidators, 
+			validate: commentValidators
 		},
 		commenter: { 
 			type: String, 

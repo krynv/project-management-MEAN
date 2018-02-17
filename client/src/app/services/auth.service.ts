@@ -10,6 +10,7 @@ export class AuthService {
 	authToken;
 	user;
 	options;
+	admin = false;
 
 	constructor(
 		private http: Http
@@ -29,7 +30,7 @@ export class AuthService {
 	}
 
 	loadToken() {
-		this.authToken = localStorage.getItem('token');;
+		this.authToken = localStorage.getItem('token');
 	}
 
 	registerUser(user) {
