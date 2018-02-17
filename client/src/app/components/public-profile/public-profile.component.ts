@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 	styleUrls: ['./public-profile.component.css']
 })
 export class PublicProfileComponent implements OnInit {
+	
 	currentUrl;
 	username;
 	email;

@@ -8,6 +8,9 @@ import { ProjectComponent } from './components/project/project.component';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
+import { UserComponent } from './components/user/user.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -41,6 +44,9 @@ describe('AppComponent', () => {
 				EditProjectComponent,
 				DeleteProjectComponent,
 				PublicProfileComponent,
+				UserComponent,
+				EditUserComponent,
+				DeleteUserComponent
 			],
 			imports: [
 				BrowserModule,
