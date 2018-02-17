@@ -27,7 +27,10 @@
         <input [disabled]="processing" type="text" name="jobTitle" placeholder="*Job Title" class="form-control" [(ngModel)]="user.jobTitle"/>
     </div>
 
-    <!-- Add form validation -->
+    <div class="form-group">
+            <label for="jobTitle">Password</label>
+            <input [disabled]="processing" type="password" name="password" placeholder="*Password" class="form-control" [(ngModel)]="user.password"/>
+        </div>
 
     <a [routerLink]="['/delete-user/', user._id]">
         <button [disabled]="processing" type="button" name="button" class="btn btn-danger">Delete</button>

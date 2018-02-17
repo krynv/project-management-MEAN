@@ -44,7 +44,14 @@ module.exports = (router) => {
 									if (!adminUser.admin) {
 										res.json({ success: false, message: 'You are not authorized to edit this user' }); // Return authentication error
 									} else {
-										User.update({ "_id": user._id }, { $set: { "email": req.body.email,  "username": req.body.username, "fullName":  req.body.fullName, "jobTitle": req.body.jobTitle } }, (err) => {
+
+										user.email = req.body.email.toLowerCase();
+										user.username = req.body.username.toLowerCase();
+										user.fullName = req.body.fullName;
+										user.jobTitle = req.body.jobTitle;
+										user.password = req.body.password;
+
+										user.save((err) => {
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {

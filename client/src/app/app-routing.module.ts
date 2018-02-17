@@ -76,10 +76,6 @@ const appRoutes: Routes = [
         component: DeleteUserComponent,
         canActivate: [AuthGuard],
     },
-    // {
-    //     path: 'edit-user-password/:id',
-    //     component:
-    // },
     {
         path: 'edit-personal-password/:id',
         component: EditPasswordComponent,
