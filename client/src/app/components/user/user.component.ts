@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
 
 	admin = false;
 	users;
+	loadingUsers = false;
 
 	constructor(private authService: AuthService, private userService: UserService) { }
 
@@ -22,6 +23,15 @@ export class UserComponent implements OnInit {
 		this.userService.getAllUsers().subscribe(data => {
 			this.users = data.users;
 		});
+	}
+
+	reloadUsers() {
+		this.loadingUsers = true;
+		this.getAllUsers();
+
+		setTimeout(() => {
+			this.loadingUsers = false;
+		}, 4000);
 	}
 
 	ngOnInit() {

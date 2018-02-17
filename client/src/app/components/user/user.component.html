@@ -6,6 +6,11 @@
 	</div>
 </div>
 
+<button [disabled]="loadingUsers" type="button" name="button" class="btn btn-default" (click)="reloadUsers()">
+<span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+<br />
+<br />
+
 <div class="panel panel-primary" *ngFor="let user of users">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ user.username }}</h3>
