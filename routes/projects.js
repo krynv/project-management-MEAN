@@ -132,8 +132,6 @@ module.exports = (router) => {
 								} else {
 
 									if (user.username !== project.createdBy && !user.admin) {
-										// future me! listen. you need to 
-										// check if admin after this initial if
 										res.json({ success: false, message: 'You are not authorized to edit this project' });
 									} else {
 										project.title = req.body.title;

@@ -146,10 +146,10 @@ const passwordValidators = [
         validator: passwordLengthChecker,
         message: 'Password must be at least 8 characters long but no more than 60',
     },
-    // {
-    //     validator: validPasswordChecker,
-    //     message: 'Password must contain at least: 1 special character, 1 uppercase letter, 1 lowercase letter and 1 number',
-    // }
+    {
+        validator: validPasswordChecker,
+        message: 'Password must contain at least: 1 special character, 1 uppercase letter, 1 lowercase letter and 1 number',
+    }
 ];
 
 const jobTitleValidators = [

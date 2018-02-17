@@ -1,0 +1,38 @@
+<h1 class="page-header">Edit User</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+    <div [ngClass]="messageClass">
+        {{ message }}
+    </div>
+</div>
+
+<form (submit)="updateUserSubmit()" *ngIf="!loading">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input [disabled]="processing" type="text" name="username" placeholder="*Username" class="form-control" [(ngModel)]="user.username"/>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input [disabled]="processing" type="email" name="email" placeholder="*Email" class="form-control" [(ngModel)]="user.email" />
+    </div>
+
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input [disabled]="processing" type="text" name="fullName" placeholder="*Full Name" class="form-control" [(ngModel)]="user.fullName"/>
+    </div>
+
+    <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input [disabled]="processing" type="text" name="jobTitle" placeholder="*Job Title" class="form-control" [(ngModel)]="user.jobTitle"/>
+    </div>
+
+    <!-- Add form validation -->
+
+    <a [routerLink]="['/delete-user/', user._id]">
+        <button [disabled]="processing" type="button" name="button" class="btn btn-danger">Delete</button>
+    </a>
+    <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+    <button [disabled]="processing" type="submit" name="save" class="btn btn-info">Save Changes</button>
+
+</form>

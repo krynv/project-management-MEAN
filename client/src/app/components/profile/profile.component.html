@@ -6,6 +6,8 @@
 	</div>
 </div>
 
+<a *ngIf="authService.loggedIn() && admin" routerLink="/users" class="btn btn-default">User Management</a>
+
 <h3 class="page-header">Personal Details:</h3>
 <ul class="list-group">
 	<li class="list-group-item">Username: {{ username }}</li>
@@ -14,7 +16,7 @@
 	<li class="list-group-item">Job Title: {{ jobTitle }}</li>
 </ul>
 
-<h3 *ngIf="participatingProjects.length !== 0" class="page-header">Projects I participate in:</h3>
+<h3 *ngIf="participatingProjects && participatingProjects.length !== 0" class="page-header">Projects I participate in:</h3>
 <div class="panel panel-primary" *ngFor="let project of participatingProjects; let last = last;">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ project.title }}</h3>

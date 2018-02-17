@@ -10,6 +10,7 @@ export class AuthService {
 	authToken;
 	user;
 	options;
+	admin = false;
 
 	constructor(
 		private http: Http

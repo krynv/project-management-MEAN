@@ -19,30 +19,37 @@ import { ProjectService } from './services/project.service';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { DeleteProjectComponent } from './components/project/delete-project/delete-project.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
+import { UserComponent } from './components/user/user.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    DashboardComponent,
-    RegisterComponent,
-    LoginComponent,
-    ProfileComponent,
-    ProjectComponent,
-    EditProjectComponent,
-    DeleteProjectComponent,
-    PublicProfileComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    FlashMessagesModule
-  ],
-  providers: [AuthService, AuthGuard, NotAuthGuard, ProjectService],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavbarComponent,
+		HomeComponent,
+		DashboardComponent,
+		RegisterComponent,
+		LoginComponent,
+		ProfileComponent,
+		ProjectComponent,
+		EditProjectComponent,
+		DeleteProjectComponent,
+		PublicProfileComponent,
+		UserComponent,
+		EditUserComponent,
+		DeleteUserComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		AppRoutingModule,
+		ReactiveFormsModule,
+		FormsModule,
+		FlashMessagesModule
+	],
+	providers: [AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,6 +24,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { ProjectService } from './services/project.service';
+import { UserService } from './services/user.service';
 
 describe('AppComponent', () => {
 	beforeEach(async(() => {
@@ -49,7 +50,7 @@ describe('AppComponent', () => {
 				FormsModule,
 				FlashMessagesModule
 			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
 		}).compileComponents();
 	}));
 	

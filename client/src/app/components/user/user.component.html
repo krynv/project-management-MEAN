@@ -1,0 +1,38 @@
+<h1 class="page-header">User Management</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+	<div [ngClass]="messageClass">
+		{{ message }}
+	</div>
+</div>
+
+<div class="panel panel-primary" *ngFor="let user of users">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ user.username }}</h3>
+	</div>
+
+	<div class="panel-footer">
+		<div>
+			<strong>Username: </strong>{{ user.username}}
+			<br />
+			<strong>Email: </strong> {{ user.email }}
+			<br />
+			<strong>Full Name: </strong> {{ user.fullName }}
+			<br />
+			<strong>Job Title : </strong>{{ user.jobTitle }}
+			<br />
+			<strong>Participating Projects: </strong>{{ user.participatingProjects.length }} 
+			<br />
+		</div>
+
+		<br />
+
+		<a [routerLink]="['/edit-user', user._id]" *ngIf="admin"> <!-- Double checking if user is still an admin -->
+			<button type="button" name="button" class="btn btn-sm btn-info">Edit User</button>
+		</a>
+
+		<a [routerLink]="['/delete-user', user._id]" *ngIf="admin">
+			<button type="button" name="button" class="btn btn-sm btn-danger">Delete User</button>
+		</a>
+	</div>
+</div>

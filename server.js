@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const config = require('./config/database.config');
 const authentication = require("./routes/authentication")(router);
 const projects = require('./routes/projects')(router);
+const users = require('./routes/users')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/client/dist`));
 app.use('/authentication', authentication);
 app.use('/projects', projects);
+app.use('/users', users);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(`${__dirname}/client/src/index.html`));

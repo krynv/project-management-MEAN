@@ -1,6 +1,12 @@
-<h1 class="page-header">Dashboard Route</h1>
+<h1 class="page-header">Dashboard</h1>
 
-<h4>This site uses:</h4>
+<a *ngIf="authService.loggedIn()" routerLink="/project" class="btn btn-default">Project Management</a>
+<a *ngIf="authService.loggedIn() && isAdmin()" routerLink="/users" class="btn btn-default">User Management</a>
+
+<br />
+<br />
+<br />
+<h4>This service utilises:</h4>
 <div class="row">
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
