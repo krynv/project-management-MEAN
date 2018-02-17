@@ -38,16 +38,16 @@
 		</div>
 
 		<div class="panel-footer">
-			<strong>Created by: </strong>{{ project.createdBy}}
-			<br />
-			<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
-			<br />
-			<strong>Due on: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
-			<br />
 			<div>
-				<strong>Individuals on task: </strong>{{ project.numberOfAssignees }} people
+				<strong>Created by: </strong>{{ project.createdBy}}
 				<br />
-				<strong>Status: </strong>{{ project.projectStatus }}
+				<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
+				<br />
+				<strong>To be completed by: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
+				<br />
+				<strong>Individuals assigned to project: </strong>{{ project.numberOfAssignees }}
+				<br />
+				<strong>Status: </strong>{{ project.projectStatus }} and {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}}
 				<br />
 			</div>
 		</div>

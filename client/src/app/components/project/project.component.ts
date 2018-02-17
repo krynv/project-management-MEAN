@@ -13,14 +13,18 @@ export class ProjectComponent implements OnInit {
 	messageClass;
 	message;
 	newProject = false;
+
 	loadingProjects = false;
 	form;
 	commentForm;
 	processing = false;
 	username;
+	admin = false;
 	projects;
 	newComment = [];
 	enabledComments = [];
+	foundComment = false;
+	currentDate: number = Date.now();
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -29,6 +33,10 @@ export class ProjectComponent implements OnInit {
 	) {
 		this.createNewProjectForm();
 		this.createCommentForm();
+	}
+
+	convertToDate(dateString) {
+		return new Date(dateString);
 	}
 
 	createNewProjectForm() {
@@ -44,7 +52,9 @@ export class ProjectComponent implements OnInit {
 				Validators.required,
 				Validators.maxLength(500),
 				Validators.minLength(5)
-			])]
+			])],
+
+			dueDate: [''],
 		})
 	}
 
@@ -69,11 +79,13 @@ export class ProjectComponent implements OnInit {
 	enableFormNewProjectForm() {
 		this.form.get('title').enable();
 		this.form.get('body').enable();
+		this.form.get('dueDate').enable();
 	}
 
 	disableFormNewProjectForm() {
 		this.form.get('title').disable();
 		this.form.get('body').disable();
+		this.form.get('dueDate').disable();
 	}
 
 	alphaNumericValidation(controls) {
@@ -120,6 +132,7 @@ export class ProjectComponent implements OnInit {
 		const project = {
 			title: this.form.get('title').value,
 			body: this.form.get('body').value,
+			dueDate: this.form.get('dueDate').value,
 			createdBy: this.username
 		}
 
@@ -162,6 +175,12 @@ export class ProjectComponent implements OnInit {
 		});
 	}
 
+	unassignFromProject(id) {
+		this.projectService.unassignFromProject(id).subscribe(data => {
+			this.getAllProjects();
+		});
+	}
+
 	postComment(id) {
 		this.disableCommentForm();
 		this.processing = true;
@@ -192,9 +211,46 @@ export class ProjectComponent implements OnInit {
 		this.enabledComments.splice(index, 1);
 	}
 
+	deleteComment(projectID, commentID) {
+		this.projectService.deleteComment(projectID, commentID).subscribe(data => {
+
+			if (!data.success) {
+				this.messageClass = 'alert alert-danger';
+				this.message = data.message;
+			} else {
+				this.messageClass = 'alert alert-success';
+				this.message = data.message;
+				this.foundComment = true;
+				this.getAllProjects();
+
+				setTimeout(() => {
+					this.foundComment = false;
+					this.message = false;
+				}, 2000);
+			}
+		});
+	}
+
+	setProjectStatus(projectID, status) {
+		this.projectService.setProjectStatus(projectID, status).subscribe(data => {
+			if (!data.success) {
+				this.messageClass = 'alert alert-danger'; 
+				this.message = data.message; 
+			} else {
+				this.getAllProjects();
+
+				setTimeout(() => {
+					this.messageClass = 'alert alert-success'; 
+					this.message = false;
+				}, 2000);
+			}
+		});
+	}
+
 	ngOnInit() {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
+			this.admin = profile.user.admin;
 		});
 
 		this.getAllProjects();

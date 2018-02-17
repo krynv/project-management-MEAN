@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 						this.router.navigate(['/dashboard']); 
 					}
 					
-				}, 2000);
+				}, 1000);
 			}
 		});
 	}

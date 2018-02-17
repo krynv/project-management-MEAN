@@ -8,9 +8,8 @@ Clone repo:
 
 Download dependencies: 
 
-    npm i
-    npm i -g nodemon
-    npm i -g @angular/cli
+    npm i && npm i -g nodemon && npm i -g @angular/cli
+    cd client/ && npm i
 
 Start MongoDB:
 
@@ -26,7 +25,7 @@ Start express server:
 
 Start client:
 
-    cd client/ && ng serve
+    cd client/ && npm start
 
 Access API on port `1337`
 

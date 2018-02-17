@@ -15,12 +15,18 @@ export class DeleteProjectComponent implements OnInit {
 	processing = false;
 	project;
 	currentUrl;
+	currentDate: number = Date.now();
 
 	constructor(
 		private projectService: ProjectService,
 		private activatedRoute: ActivatedRoute,
 		private router: Router
 	) { }
+
+
+	convertToDate(dateString) {
+		return new Date(dateString);
+	}
 
 	deleteProject() {
 		this.processing = true;

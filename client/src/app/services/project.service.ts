@@ -55,6 +55,11 @@ export class ProjectService {
 		return this.http.put(`${this.domain}/projects/assignToProject/`, projectData, this.options).map(res => res.json());
 	}
 
+	unassignFromProject(id) {
+		const projectData = { id: id };
+		return this.http.put(`${this.domain}/projects/unassignFromProject/`, projectData, this.options).map(res => res.json());
+	}
+
 	postComment(id, comment) {
 		this.createAuthenticationHeaders(); 
 		
@@ -66,4 +71,13 @@ export class ProjectService {
 		return this.http.post(`${this.domain}/projects/comment`, projectData, this.options).map(res => res.json());
 	}
 
+	deleteComment(projectID, commentID) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/projects/deleteComment/${projectID}/${commentID}`, this.options).map(res => res.json());
+	}
+
+	setProjectStatus(projectID, status) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/projects/setProjectStatus/${projectID}/${status}`, this.options).map(res => res.json());
+	}
 }

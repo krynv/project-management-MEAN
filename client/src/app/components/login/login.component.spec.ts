@@ -1,25 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
-import { FormGroup, FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
+import { HomeComponent } from '../../components/home/home.component';
+import { DashboardComponent } from '../../components/dashboard/dashboard.component';
+import { RegisterComponent } from '../../components/register/register.component';
+import { LoginComponent } from '../../components/login/login.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ProfileComponent } from '../../components/profile/profile.component';
+import { ProjectComponent } from '../../components/project/project.component';
+import { EditProjectComponent } from '../../components/project/edit-project/edit-project.component';
+import { DeleteProjectComponent } from '../../components/project/delete-project/delete-project.component';
+import { PublicProfileComponent } from '../../components/public-profile/public-profile.component';
+import { UserComponent } from '../../components/user/user.component';
+import { EditUserComponent } from '../../components/user/edit-user/edit-user.component';
+import { DeleteUserComponent } from '../../components/user/delete-user/delete-user.component';
+import { EditPasswordComponent } from '../../components/profile/edit-password/edit-password.component';
+
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from '../../app-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+
+import { APP_BASE_HREF } from '@angular/common';
 import { AuthGuard } from '../../guards/auth.guard';
 import { NotAuthGuard } from '../../guards/notAuth.guard';
-import { HomeComponent } from '../home/home.component';
-import { AppComponent } from '../../app.component';
-import { ProjectComponent } from '../project/project.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { RegisterComponent } from '../register/register.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { APP_BASE_HREF } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 import { ProjectService } from '../../services/project.service';
-import { EditProjectComponent } from '../project/edit-project/edit-project.component';
-import { DeleteProjectComponent } from '../project/delete-project/delete-project.component';
-import { PublicProfileComponent } from '../public-profile/public-profile.component';
+import { UserService } from '../../services/user.service';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -39,15 +47,20 @@ describe('LoginComponent', () => {
 				EditProjectComponent,
 				DeleteProjectComponent,
 				PublicProfileComponent,
+				UserComponent,
+				EditUserComponent,
+				DeleteUserComponent,
+				EditPasswordComponent,
 			],
 			imports: [
+				BrowserModule,
 				HttpModule,
 				AppRoutingModule,
 				ReactiveFormsModule,
 				FormsModule,
-				FlashMessagesModule,
+				FlashMessagesModule
 			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService],
+			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
 		})
 			.compileComponents();
 	}));
