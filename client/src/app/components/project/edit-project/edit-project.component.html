@@ -9,8 +9,7 @@
 <form (submit)="updateProjectSubmit()" *ngIf="!loading">
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input [disabled]="processing" type="text" name="title" placeholder="*Project Title" class="form-control" [(ngModel)]="project.title"
-		/>
+		<input [disabled]="processing" type="text" name="title" placeholder="*Project Title" class="form-control" [(ngModel)]="project.title"/>
 	</div>
 
 	<div class="form-group">
@@ -18,9 +17,10 @@
 		<textarea [disabled]="processing" name="body" rows="8" cols="80" [(ngModel)]="project.body" class="form-control" placeholder="*Project Body"></textarea>
 	</div>
 
-	<!-- Add additional edit options for due date -->
-
-	<!-- Add form validation -->
+	<div class="form-group">
+		<label for="dueDate">Deadline</label>
+		<input [disabled]="processing" type="date" name="dueDate" class="form-control" [(ngModel)]="project.dueDate"/>
+	</div>
 
 	<a [routerLink]="['/delete-project/', project._id]">
 		<button [disabled]="processing" type="button" name="button" class="btn btn-danger">Delete</button>

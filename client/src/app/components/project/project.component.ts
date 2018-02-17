@@ -52,7 +52,9 @@ export class ProjectComponent implements OnInit {
 				Validators.required,
 				Validators.maxLength(500),
 				Validators.minLength(5)
-			])]
+			])],
+
+			dueDate: [''],
 		})
 	}
 
@@ -77,11 +79,13 @@ export class ProjectComponent implements OnInit {
 	enableFormNewProjectForm() {
 		this.form.get('title').enable();
 		this.form.get('body').enable();
+		this.form.get('dueDate').enable();
 	}
 
 	disableFormNewProjectForm() {
 		this.form.get('title').disable();
 		this.form.get('body').disable();
+		this.form.get('dueDate').disable();
 	}
 
 	alphaNumericValidation(controls) {
@@ -128,6 +132,7 @@ export class ProjectComponent implements OnInit {
 		const project = {
 			title: this.form.get('title').value,
 			body: this.form.get('body').value,
+			dueDate: this.form.get('dueDate').value,
 			createdBy: this.username
 		}
 

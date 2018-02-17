@@ -22,6 +22,7 @@ module.exports = (router) => {
 					const project = new Project({
 						title: req.body.title,
 						body: req.body.body,
+						dueDate: req.body.dueDate,
 						createdBy: req.body.createdBy
 					});
 
@@ -136,6 +137,7 @@ module.exports = (router) => {
 									} else {
 										project.title = req.body.title;
 										project.body = req.body.body;
+										project.dueDate = req.body.dueDate;
 
 										project.save((err) => {
 											if (err) {
@@ -157,7 +159,8 @@ module.exports = (router) => {
 												{ 
 													$set: { 
 														"participatingProjects.$.title": req.body.title,
-														"participatingProjects.$.body" : req.body.body
+														"participatingProjects.$.body" : req.body.body,
+														"participatingProjects.$.dueDate": req.body.dueDate,
 													} 
 												}, 
 												(err) => {
