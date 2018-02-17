@@ -14,6 +14,7 @@ import { PublicProfileComponent } from './components/public-profile/public-profi
 import { UserComponent } from './components/user/user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
+import { EditPasswordComponent } from './components/profile/edit-password/edit-password.component';
 
 const appRoutes: Routes = [
     { 
@@ -73,6 +74,15 @@ const appRoutes: Routes = [
     {
         path: 'delete-user/:id',
         component: DeleteUserComponent,
+        canActivate: [AuthGuard],
+    },
+    // {
+    //     path: 'edit-user-password/:id',
+    //     component:
+    // },
+    {
+        path: 'edit-personal-password/:id',
+        component: EditPasswordComponent,
         canActivate: [AuthGuard],
     },
     {

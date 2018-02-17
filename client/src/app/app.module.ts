@@ -23,6 +23,7 @@ import { UserComponent } from './components/user/user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
 import { UserService } from './services/user.service';
+import { EditPasswordComponent } from './components/profile/edit-password/edit-password.component';
 
 @NgModule({
 	declarations: [
@@ -39,7 +40,8 @@ import { UserService } from './services/user.service';
 		PublicProfileComponent,
 		UserComponent,
 		EditUserComponent,
-		DeleteUserComponent
+		DeleteUserComponent,
+		EditPasswordComponent
 	],
 	imports: [
 		BrowserModule,

@@ -16,6 +16,10 @@
 	<li class="list-group-item">Job Title: {{ jobTitle }}</li>
 </ul>
 
+<a [routerLink]="['/edit-personal-password', id]" *ngIf="authService.loggedIn()"> 
+	<button type="button" name="button" class="btn btn-sm btn-info">Update Password</button>
+</a>
+
 <h3 *ngIf="participatingProjects && participatingProjects.length !== 0" class="page-header">Projects I participate in:</h3>
 <div class="panel panel-primary" *ngFor="let project of participatingProjects; let last = last;">
 	<div class="panel-heading">

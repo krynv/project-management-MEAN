@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
 	messageClass;
 	message;
 
+	id = '';
 	username = '';
 	email = '';
 	fullName = '';
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
 
 	getAllProjects() {
 		this.authService.getProfile().subscribe(profile => {
+			this.id = profile.user._id;
 			this.admin = profile.user.admin;
 			this.username = profile.user.username;
 			this.email = profile.user.email;

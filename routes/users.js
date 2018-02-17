@@ -61,6 +61,58 @@ module.exports = (router) => {
 		}
 	});
 
+	router.put('/updatePersonalPassword', (req, res) => {
+		if (!req.body._id) {
+			res.json({ success: false, message: 'User id is required' });
+		} else {
+
+			User.findOne({ _id: req.body._id }, (err, user) => {
+
+				if (err) {
+					res.json({ success: false, message: 'Not a valid user id' });
+				} else {
+
+					if (!user) {
+						res.json({ success: false, message: 'User id was not found' });
+					} else {
+
+						User.findOne({ _id: req.decoded.userId }, (err, currentUser) => {
+
+							if (err) {
+								res.json({ success: false, message: err });
+							} else {
+
+								if (!currentUser) {
+									res.json({ success: false, message: 'Unable to authenticate user' });
+								} else {
+									
+									if (!req.body._id == req.decoded.userId) { // check if the person updating the password is in fact the account holder
+										res.json({ success: false, message: 'You are not authorized to edit this user password' }); // Return authentication error
+									} else {
+
+										currentUser.email = currentUser.email.toLowerCase();
+										currentUser.username = currentUser.username.toLowerCase();
+										currentUser.fullName = currentUser.fullName;
+										currentUser.jobTitle = currentUser.jobTitle;
+										currentUser.password = req.body.password;
+
+										currentUser.save((err) => {
+											if (err) {
+												res.json({ success: false, message: err });
+											} else {
+												res.json({ success: true, message: 'Password updated' });
+											}
+										});
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
 	router.get('/singleUser/:id', (req, res) => {
 
 		if (!req.params.id) {
@@ -86,7 +138,45 @@ module.exports = (router) => {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
 									if (!adminUser.admin) {
-										res.json({ success: false, message: 'You are not authorized to edit this user' }); // Return authentication error
+										res.json({ success: false, message: 'You are not authorized to get this users information' }); // Return authentication error
+									} else {
+										res.json({ success: true, user: user });
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
+	router.get('/singleUserForPasswordChange/:id', (req, res) => {
+
+		if (!req.params.id) {
+			res.json({ success: false, message: 'No user id provided' });
+		} else {
+
+			User.findOne({ _id: req.params.id }, (err, user) => {
+
+				if (err) {
+					res.json({ success: false, message: 'Not a valid user id' });
+				} else {
+
+					if (!user) {
+						res.json({ success: false, message: 'User not found' });
+					} else {
+
+						User.findOne({ _id: req.decoded.userId }, (err, currentUser) => {
+
+							if (err) {
+								res.json({ success: false, message: err });
+							} else {
+								if (!currentUser) {
+									res.json({ success: false, message: 'Unable to authenticate user' });
+								} else {
+									if (!req.params.id==req.decoded.userId) {
+										res.json({ success: false, message: 'You are not authorized to get this users information' }); // Return authentication error
 									} else {
 										res.json({ success: true, user: user });
 									}

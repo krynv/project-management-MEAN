@@ -42,7 +42,17 @@ export class UserService {
 
 	deleteUser(id) {
 		this.createAuthenticationHeaders();
-		return this.http.delete(`${this.domain}/projects/deleteUser/${id}`, this.options).map(res => res.json());
+		return this.http.delete(`${this.domain}/users/deleteUser/${id}`, this.options).map(res => res.json());
+	}
+
+	singleUserForPasswordChange(id) {
+		this.createAuthenticationHeaders();
+		return this.http.get(`${this.domain}/users/singleUserForPasswordChange/${id}`, this.options).map(res => res.json());
+	}
+
+	updatePersonalPassword(user) {
+		this.createAuthenticationHeaders();
+		return this.http.put(`${this.domain}/users/updatePersonalPassword/`, user, this.options).map(res => res.json());
 	}
 
 }

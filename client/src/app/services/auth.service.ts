@@ -30,7 +30,7 @@ export class AuthService {
 	}
 
 	loadToken() {
-		this.authToken = localStorage.getItem('token');;
+		this.authToken = localStorage.getItem('token');
 	}
 
 	registerUser(user) {
