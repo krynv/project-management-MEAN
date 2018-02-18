@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit {
 	enabledComments = [];
 	foundComment = false;
 	currentDate: number = Date.now();
+	userSelection;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -247,6 +248,53 @@ export class ProjectComponent implements OnInit {
 		});
 	}
 
+	setFilteredProjects(givenProjects, givenUserSelection) {
+		
+		if (givenProjects.length < 1) {
+			//do nothing
+		} else {
+			this.projects = givenProjects;
+
+			if (givenUserSelection === "All") {
+				
+				this.projects.forEach(project => {
+					project.visible = true;
+				});
+			} 
+
+			else if (givenUserSelection === "On Schedule") {
+
+				this.projects.forEach(project => {
+					if (this.convertToDate(this.currentDate) <= this.convertToDate(project.dueDate)) {
+						project.visible = true;
+					} else {
+						project.visible = false;
+					}
+				});
+			}
+
+			else if (givenUserSelection === "Overdue") {
+				this.projects.forEach(project => {
+					if (this.convertToDate(this.currentDate) >= this.convertToDate(project.dueDate)) {
+						project.visible = false;
+					} else {
+						project.visible = true;
+					}
+				});
+
+			} else {
+				this.projects.forEach(project => {
+					if (project.projectStatus === givenUserSelection) {
+						project.visible = true;
+					} else {
+						project.visible = false;
+					}
+				});
+			}
+		}
+
+	}
+
 	ngOnInit() {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
@@ -254,6 +302,7 @@ export class ProjectComponent implements OnInit {
 		});
 
 		this.getAllProjects();
+		this.userSelection = 'All';
 	}
 
 }

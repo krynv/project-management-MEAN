@@ -115,7 +115,11 @@ const projectSchema = new Schema({
 		commenter: { 
 			type: String, 
 		}
-	}]
+	}],
+	visible: {
+		type: Boolean,
+		default: true,
+	}
 });
 
 module.exports = mongoose.model('Project', projectSchema);

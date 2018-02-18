@@ -50,8 +50,20 @@
 
 
 <div *ngIf="!newProject">
+	Filter By: 
+	<select [(ngModel)]="userSelection" (change)="setFilteredProjects(projects, userSelection)">
+		<option value="All">All Projects</option>
+		<option value="Not Started">Not Started</option>
+		<option value="In Progress">In Progress</option>
+		<option value="Completed">Completed</option>
+		<option value="On Schedule">On Schedule</option>
+		<option value="Overdue">Overdue</option>
+	</select>
 
-	<div class="panel panel-primary" *ngFor="let project of projects">
+	<br/>
+	<br/>
+
+	<div class="panel panel-primary" *ngFor="let project of projects" [hidden]="!project.visible">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{ project.title }}</h3>
 		</div>
