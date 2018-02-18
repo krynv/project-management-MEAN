@@ -42,7 +42,7 @@ module.exports = (router) => {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
 									if (!adminUser.admin) {
-										res.json({ success: false, message: 'You are not authorized to edit this user' }); // Return authentication error
+										res.json({ success: false, message: 'You are not authorized to edit this user' }); // Return authentication error if not admin
 									} else {
 
 										user.email = req.body.email.toLowerCase();
@@ -51,7 +51,7 @@ module.exports = (router) => {
 										user.jobTitle = req.body.jobTitle;
 										user.password = req.body.password;
 
-										user.save((err) => {
+										user.save((err) => { // save new user
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {

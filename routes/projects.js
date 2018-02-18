@@ -144,11 +144,11 @@ module.exports = (router) => {
 												if (err.errors) {
 													res.json({ success: false, message: 'Please ensure the form is filled out correctly' });
 												} else {
-													res.json({ success: false, message: err });
+													res.json({ success: false, message: err }); // save the project 
 												}
 											} else {
 
-												User.update(
+												User.update( // also go through the users to update their participating projects 
 												{ 
 													"participatingProjects" : { 
 														$elemMatch : { 
@@ -215,6 +215,7 @@ module.exports = (router) => {
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {
+												// find users that have this project and delete it from their document
 												User.update( { "participatingProjects" : { $elemMatch : { "_id": project._id } } }, { $pull : { "participatingProjects" : { "_id": project._id } } },{multi: true}, (err) => {
 
 													if (err) {
@@ -266,7 +267,7 @@ module.exports = (router) => {
 									} else {
 
 										project.numberOfAssignees++;
-										project.assignees.push(user.username);
+										project.assignees.push(user.username); // add this user to the assignees for the profile link
 
 										project.save((err) => {
 											if (err) {
@@ -329,6 +330,7 @@ module.exports = (router) => {
 											if (err) {
 												res.json({ success: false, message: 'Something went wrong' });
 											} else {
+												// don't forget to remove it from the user too
 												User.update({ "_id": req.decoded.userId }, { $pull: { "participatingProjects": { "_id": project._id } } }, (err) => {
 													if (err) {
 														res.json({ success: false, message: err });
@@ -430,9 +432,11 @@ module.exports = (router) => {
 											res.json({ success: false, message: 'Unable to authenticate user' });
 										} else {
 
+											// if you're not an admin, the person who created it or the commenter
 											if (user.username !== project.createdBy && user.username !== project.comments.find(comment => comment.id === req.params.commentID).commenter && !user.admin) {
-												res.json({ success: false, message: 'You are not authorized to delete this comment' });
+												res.json({ success: false, message: 'You are not authorized to delete this comment' }); // then return error
 											} else {
+												// otherwise update the project with it's comment. We don't care about comments in the user table
 												Project.update({ "_id": req.params.projectID }, { $pull: { "comments": { "_id": req.params.commentID } } }, (err) => {
 													if (err) {
 														res.json({ success: false, message: err });
@@ -477,7 +481,7 @@ module.exports = (router) => {
 								if (!user) {
 									res.json({ success: false, message: 'Unable to authenticate user' });
 								} else {
-
+									// if you're not an admin, or the project was not made by you
 									if (user.username !== project.createdBy && !user.admin) {
 										res.json({ success: false, message: 'You are not authorized to edit this project' });
 									} else {
@@ -485,7 +489,7 @@ module.exports = (router) => {
 											if (err) {
 												res.json({ success: false, message: err });
 											} else {
-
+												// also update any users that are assigned to this project
 												User.update( 
 													{ "participatingProjects" : 
 													{ 
@@ -501,7 +505,7 @@ module.exports = (router) => {
 														}  
 													}, 
 													{ 
-														multi: true 
+														multi: true  // do it on every user that meets this criteria
 													}, 
 												(err) => {
 													if (err) {
