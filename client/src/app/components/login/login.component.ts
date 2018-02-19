@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
 				setTimeout(() => {
 
 					if (this.previousUrl) {
-						this.router.navigate([this.previousUrl]);
+						this.router.navigate([this.previousUrl]); // allow users to continue to the page they wanted to get to, after attempting to access it before logging in
 					} else {
 						this.router.navigate(['/dashboard']); 
 					}

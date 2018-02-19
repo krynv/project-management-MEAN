@@ -66,4 +66,18 @@ describe('ProjectService', () => {
 	it('should be created', inject([ProjectService], (service: ProjectService) => {
 		expect(service).toBeTruthy();
 	}));
+
+	it('should have all functions', inject([ProjectService], (service: ProjectService) => {
+		expect(service.createAuthenticationHeaders).toBeTruthy();
+		expect(service.newProject).toBeTruthy();
+		expect(service.getAllProjects).toBeTruthy();
+		expect(service.getSingleProject).toBeTruthy();
+		expect(service.editProject).toBeTruthy();
+		expect(service.deleteProject).toBeTruthy();
+		expect(service.assignToProject).toBeTruthy();
+		expect(service.unassignFromProject).toBeTruthy();
+		expect(service.postComment).toBeTruthy();
+		expect(service.deleteComment).toBeTruthy();
+		expect(service.setProjectStatus).toBeTruthy();
+	}));
 });

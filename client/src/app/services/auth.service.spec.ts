@@ -68,4 +68,33 @@ describe('AuthService', () => {
 	it('should be created', inject([AuthService], (service: AuthService) => {
 		expect(service).toBeTruthy();
 	}));
+
+	it('should have all the functions', inject([AuthService], (service: AuthService) => {
+		expect(service.createAuthenticationHeaders).toBeTruthy();
+		expect(service.loadToken).toBeTruthy();
+		expect(service.registerUser).toBeTruthy();
+		expect(service.checkUsername).toBeTruthy();
+		expect(service.checkEmail).toBeTruthy();
+		expect(service.login).toBeTruthy();
+		expect(service.logout).toBeTruthy();
+		expect(service.storeUserData).toBeTruthy();
+		expect(service.getProfile).toBeTruthy();
+		expect(service.getPublicProfile).toBeTruthy();
+		expect(service.loggedIn).toBeTruthy();
+	}));
+
+	it('user should not be logged in', inject([AuthService], (service: AuthService) => {
+		expect(service.loggedIn).toBeFalsy;
+	}));
+
+	it('user should be able to log out', inject([AuthService], (service: AuthService) => {
+		expect(service.logout);
+	}));
+
+	it('user should be check for a valid username', inject([AuthService], (service: AuthService) => {
+		service.checkUsername('barryChuckle').subscribe(data => {
+			expect(data.message).toEqual('Available');
+		});
+	}));
+
 });
