@@ -112,7 +112,7 @@ export class EditPasswordComponent implements OnInit {
 
 		this.userService.singleUserForPasswordChange(this.currentUrl.id).subscribe(data => {
 			
-			if (data.user.username != JSON.parse(localStorage.getItem('user')).username) {
+			if (data.user.username != JSON.parse(localStorage.getItem('user')).username) { // check if username is the same as the current logged in user
 				this.router.navigate(['/dashboard']);
 			} else {
 				if (!data.success) {

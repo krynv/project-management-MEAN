@@ -202,12 +202,12 @@ const userSchema = new Schema({
     },
 });
 
-userSchema.pre('save', function (next) {
-    if (!this.isModified('password')) {
+userSchema.pre('save', function (next) { // before saving the user
+    if (!this.isModified('password')) { // check if their password has been changed
         return next();
     }
 
-    bcrypt.hash(this.password, null, null, (err, hash) => {
+    bcrypt.hash(this.password, null, null, (err, hash) => { // if yes, then encrypt their new one
         if (err) return next(err);
         this.password = hash;
         next();

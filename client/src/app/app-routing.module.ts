@@ -16,7 +16,7 @@ import { EditUserComponent } from './components/user/edit-user/edit-user.compone
 import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
 import { EditPasswordComponent } from './components/profile/edit-password/edit-password.component';
 
-const appRoutes: Routes = [
+const appRoutes: Routes = [ // setup front end routes with auth guard
     { 
         path: '', 
         component: HomeComponent, 
@@ -83,7 +83,7 @@ const appRoutes: Routes = [
     },
     {
         path: '**', 
-        component: HomeComponent,
+        component: HomeComponent, // send any unknown route to home
     }
 ]; 
 
