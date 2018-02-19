@@ -1,8 +1,9 @@
 const User = require('../models/user');
+const jstoxml = require('jstoxml');
 
 module.exports = (router) => {
 
-	router.get('/allUsers', (req, res) => {
+	router.get('/allUsers/:asXml?', (req, res) => {
 		User.find({}, (err, users) => {
 			if (err) {
 				res.json({ success: false, message: err });
@@ -10,7 +11,13 @@ module.exports = (router) => {
 				if (!users) {
 					res.json({ success: false, message: 'No users found' });
 				} else {
-					res.json({ success: true, users: users });
+					if (req.params.asXml) {
+						res.set('Content-Type', 'application/xml');
+						res.send(jstoxml.toXML({ success: true, users: users })); 
+					} else {
+						res.json({ success: true, users: users });
+					}
+					
 				}
 			}
 		}).sort({ '_id': -1 }); // give me newest first (descending order - earliest created in db)
@@ -120,7 +127,7 @@ module.exports = (router) => {
 		}
 	});
 
-	router.get('/singleUser/:id', (req, res) => {
+	router.get('/singleUser/:id/:asXml?', (req, res) => {
 
 		if (!req.params.id) {
 			res.json({ success: false, message: 'No user id provided' });
@@ -147,7 +154,13 @@ module.exports = (router) => {
 									if (!adminUser.admin) {
 										res.json({ success: false, message: 'You are not authorized to get this users information' }); // Return authentication error
 									} else {
-										res.json({ success: true, user: user });
+										if (req.params.asXml) {
+											res.set('Content-Type', 'application/xml');
+											res.send(jstoxml.toXML({ success: true, user: user })); 
+										} else {
+											res.json({ success: true, user: user });
+										}
+										
 									}
 								}
 							}
@@ -158,7 +171,7 @@ module.exports = (router) => {
 		}
 	});
 
-	router.get('/singleUserForPasswordChange/:id', (req, res) => {
+	router.get('/singleUserForPasswordChange/:id/:asXml?', (req, res) => {
 
 		if (!req.params.id) {
 			res.json({ success: false, message: 'No user id provided' });
@@ -185,7 +198,13 @@ module.exports = (router) => {
 									if (!req.params.id==req.decoded.userId) {
 										res.json({ success: false, message: 'You are not authorized to get this users information' }); // Return authentication error
 									} else {
-										res.json({ success: true, user: user });
+										if (req.params.asXml) {
+											res.set('Content-Type', 'application/xml');
+											res.send(jstoxml.toXML({ success: true, user: user })); 
+										} else {
+											res.json({ success: true, user: user });
+										}
+										
 									}
 								}
 							}

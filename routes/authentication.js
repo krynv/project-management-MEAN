@@ -1,6 +1,7 @@
 const User = require(`../models/user`);
 const jwt = require('jsonwebtoken');
 const config = require('../config/database.config');
+const jstoxml = require('jstoxml');
 
 module.exports = (router) => {
 
@@ -108,7 +109,7 @@ module.exports = (router) => {
 		}
 	});
 
-	router.post('/login', (req, res) => {
+	router.post('/login/:asXml?', (req, res) => {
 		if (!req.body.username) {
 			res.json({ success: false, message: 'No username provided' });
 		} else {
@@ -135,7 +136,13 @@ module.exports = (router) => {
 										expiresIn: '24h'
 									});
 
-								res.json({ success: true, message: 'Success', token: token, user: { username: user.username } });
+									if (req.params.asXml) {
+										res.set('Content-Type', 'application/xml');
+										res.send(jstoxml.toXML({success: true, message: 'Success', token: token, user: { username: user.username}}));
+									} else {
+										res.json({ success: true, message: 'Success', token: token, user: { username: user.username } });
+									}
+								
 							}
 						}
 					}
@@ -161,7 +168,7 @@ module.exports = (router) => {
 		}
 	});
 
-	router.get('/profile', (req, res) => {
+	router.get('/profile/:asXml?', (req, res) => {
 		User.findOne({ _id: req.decoded.userId }).select('admin username email fullName jobTitle participatingProjects').exec((err, user) => {
 			if (err) {
 				res.json({ success: false, message: err });
@@ -169,13 +176,18 @@ module.exports = (router) => {
 				if (!user) {
 					res.json({ success: false, message: 'User not found' });
 				} else {
-					res.json({ success: true, user: user });
+					if (req.params.asXml) {
+						res.set('Content-Type', 'application/xml');
+						res.send(jstoxml.toXML({success: true, user: user}));
+					} else {
+						res.json({ success: true, user: user });
+					}
 				}
 			}
 		});
 	});
 
-	router.get('/publicProfile/:username', (req, res) => {
+	router.get('/publicProfile/:username/:asXml?', (req, res) => {
 		if (!req.params.username) {
 			res.json({ success: false, message: 'No username provided' }); 
 		} else {
@@ -186,7 +198,12 @@ module.exports = (router) => {
 					if (!user) {
 						res.json({ success: false, message: 'Username not found' }); 
 					} else {
-						res.json({ success: true, user: user }); 
+						if (req.params.asXml) {
+							res.set('Content-Type', 'application/xml');
+							res.send(jstoxml.toXML({success: true, user: user}));
+						} else {
+							res.json({ success: true, user: user }); 
+						}
 					}
 				}
 			});

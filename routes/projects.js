@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Project = require('../models/project');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database.config');
+const jstoxml = require('jstoxml');
 
 module.exports = (router) => {
 
@@ -50,7 +51,7 @@ module.exports = (router) => {
 		}
 	});
 
-	router.get('/allProjects', (req, res) => {
+	router.get('/allProjects/:asXml?', (req, res) => {
 		Project.find({}, (err, projects) => {
 			if (err) {
 				res.json({ success: false, message: err });
@@ -58,13 +59,19 @@ module.exports = (router) => {
 				if (!projects) {
 					res.json({ success: false, message: 'No projects found' });
 				} else {
-					res.json({ success: true, projects: projects });
+					if (req.params.asXml) {
+						res.set('Content-Type', 'application/xml');
+						res.send(jstoxml.toXML({ success: true, projects: projects }));
+					} else {
+						res.json({ success: true, projects: projects });
+					}
+					
 				}
 			}
 		}).sort({ '_id': -1 }); // give me newest first (descending order - earliest created in db)
 	});
 
-	router.get('/singleProject/:id', (req, res) => {
+	router.get('/singleProject/:id/:asXml?', (req, res) => {
 
 		if (!req.params.id) {
 			res.json({ success: false, message: 'No project id provided' });
@@ -94,7 +101,13 @@ module.exports = (router) => {
 									if (user.username !== project.createdBy && !user.admin) {
 										res.json({ success: false, message: 'You are not authorized to edit this project' }); // Return authentication error
 									} else {
-										res.json({ success: true, project: project });
+										if (req.params.asXml) {
+											res.set('Content-Type', 'application/xml');
+											res.send(jstoxml.toXML({ success: true, project: project }));
+										} else {
+											res.json({ success: true, project: project });
+										}
+										
 									}
 								}
 							}
