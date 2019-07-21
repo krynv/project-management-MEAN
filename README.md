@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.com/krynv/project-management-MEAN.svg?token=M3MdFm712J5BiykqssE8&branch=develop)](https://travis-ci.com/krynv/project-management-MEAN) 
 
+You may need to have Python version 2.7 installed for the node-gyp dependency. 
+
 Clone repo: 
 
-    git clone git@github.com:krynv/project-management.git && cd project-management
+    git clone git@github.com:krynv/project-management-mean.git && cd project-management-mean
 
 Download dependencies: 
 
