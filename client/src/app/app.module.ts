@@ -26,32 +26,32 @@ import { UserService } from './services/user.service';
 import { EditPasswordComponent } from './components/profile/edit-password/edit-password.component';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		NavbarComponent,
-		HomeComponent,
-		DashboardComponent,
-		RegisterComponent,
-		LoginComponent,
-		ProfileComponent,
-		ProjectComponent,
-		EditProjectComponent,
-		DeleteProjectComponent,
-		PublicProfileComponent,
-		UserComponent,
-		EditUserComponent,
-		DeleteUserComponent,
-		EditPasswordComponent
-	],
-	imports: [
-		BrowserModule,
-		HttpModule,
-		AppRoutingModule,
-		ReactiveFormsModule,
-		FormsModule,
-		FlashMessagesModule
-	],
-	providers: [AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
-	bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        HomeComponent,
+        DashboardComponent,
+        RegisterComponent,
+        LoginComponent,
+        ProfileComponent,
+        ProjectComponent,
+        EditProjectComponent,
+        DeleteProjectComponent,
+        PublicProfileComponent,
+        UserComponent,
+        EditUserComponent,
+        DeleteUserComponent,
+        EditPasswordComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        FlashMessagesModule.forRoot(),
+    ],
+    providers: [AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

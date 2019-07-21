@@ -1,176 +1,206 @@
 <h1 class="page-header">Project Archive</h1>
 
 <div class="row show-hide-message" *ngIf="message && newProject || foundComment">
-	<div [ngClass]="messageClass">
-		{{ message }}
-	</div>
+    <div [ngClass]="messageClass">
+        {{ message }}
+    </div>
 </div>
 
 
-<button type="button" name="button" class="btn btn-warning" *ngIf="!newProject" (click)="newProjectForm()">New Project</button>
-<button [disabled]="loadingProjects" type="button" name="button" class="btn btn-default" *ngIf="!newProject" (click)="reloadProjects()">
-<span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newProject" (click)="newProjectForm()">New
+    Project</button>
+<button [disabled]="loadingProjects" type="button" name="button" class="btn btn-default" *ngIf="!newProject"
+    (click)="reloadProjects()">
+    <span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
 
 <br />
 <br />
 
 <form [formGroup]="form" name="projectForm" (submit)="onProjectSubmit()" *ngIf="newProject">
-	<div class="form-group">
-		<label for="title">Title</label>
-		<div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
-			<input type="text" name="title" class="form-control" placeholder="*Project Title" autocomplete="off" formControlName="title"/>
-			<ul class="help-block">
-				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
-				<li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
-				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number</li>
-			</ul>
-		</div>
-	</div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <div
+            [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+            <input type="text" name="title" class="form-control" placeholder="*Project Title" autocomplete="off"
+                formControlName="title" />
+            <ul class="help-block">
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.
+                </li>
+                <li
+                    *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">
+                    Max length: 50, Min length: 5</li>
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a
+                    letter or number</li>
+            </ul>
+        </div>
+    </div>
 
-	<div class="form-group">
-		<label  for="body">Project Description</label>
-		<div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
-			<textarea name="body" rows="8" cols="80" placeholder="*Project Description" class="form-control" formControlName="body"></textarea>
-			<ul class="help-block">
-				<li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
-				<li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Max length: 500, Min length: 5</li>
-			</ul>
-		</div>
-	</div>
+    <div class="form-group">
+        <label for="body">Project Description</label>
+        <div
+            [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+            <textarea name="body" rows="8" cols="80" placeholder="*Project Description" class="form-control"
+                formControlName="body"></textarea>
+            <ul class="help-block">
+                <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
+                <li
+                    *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">
+                    Max length: 500, Min length: 5</li>
+            </ul>
+        </div>
+    </div>
 
-	<div class="form-group">
-		<label for="dueDate">Deadline</label>
-		<input type="date" name="dueDate" class="form-control" autocomplete="off" formControlName="dueDate"/>
-	</div>
+    <div class="form-group">
+        <label for="dueDate">Deadline</label>
+        <input type="date" name="dueDate" class="form-control" autocomplete="off" formControlName="dueDate" />
+    </div>
 
-	<button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
-	<button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit</button>
+    <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go
+        Back</button>
+    <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit</button>
 
 </form>
 
 
 <div *ngIf="!newProject">
-	Filter By: 
-	<select [(ngModel)]="userSelection" (change)="setFilteredProjects(projects, userSelection)">
-		<option value="All">All Projects</option>
-		<option value="Not Started">Not Started</option>
-		<option value="In Progress">In Progress</option>
-		<option value="Completed">Completed</option>
-		<option value="On Schedule">On Schedule</option>
-		<option value="Overdue">Overdue</option>
-	</select>
+    Filter By:
+    <select [(ngModel)]="userSelection" (change)="setFilteredProjects(projects, userSelection)">
+        <option value="All">All Projects</option>
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+        <option value="On Schedule">On Schedule</option>
+        <option value="Overdue">Overdue</option>
+    </select>
 
-	<br/>
-	<br/>
+    <br />
+    <br />
 
-	<div class="panel panel-primary" *ngFor="let project of projects" [hidden]="!project.visible">
-		<div class="panel-heading">
-			<h3 class="panel-title">{{ project.title }}</h3>
-		</div>
+    <div class="panel panel-primary" *ngFor="let project of projects" [hidden]="!project.visible">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ project.title }}</h3>
+        </div>
 
-		<div class="panel-body pre">
-			{{ project.body }}
-		</div>
+        <div class="panel-body">
+            {{ project.body }}
+        </div>
 
-		<div class="panel-footer">
-			<div>
-				<strong>Created by: </strong>{{ project.createdBy}}
-				<br />
-				<strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
-				<br />
-				<strong>To be completed by: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
-				<br />
-				<strong>Individuals assigned to project: </strong>{{ project.numberOfAssignees }}
-				<br />
-				<strong>Status: </strong>{{ project.projectStatus }} and {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}}
-				<br />
-			</div>
+        <div class="panel-footer">
+            <div>
+                <strong>Created by: </strong>{{ project.createdBy}}
+                <br />
+                <strong>Created at: </strong> {{ project.createdAt | date:'MMM dd, yyyy'}}
+                <br />
+                <strong>To be completed by: </strong> {{ project.dueDate | date:'MMM dd, yyyy'}}
+                <br />
+                <strong>Individuals assigned to project: </strong>{{ project.numberOfAssignees }}
+                <br />
+                <strong>Status: </strong>{{ project.projectStatus }} and
+                {{ currentDate <= convertToDate(project.dueDate) ? "On Schedule" : "Overdue"}}
+                <br />
+            </div>
 
-			<div class="dropdown">
-				<br />
-				<button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button" class="btn btn-sm btn-success" (click)="assignToProject(project._id)">
-					<span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
-				</button>
+            <div class="dropdown">
+                <br />
+                <button [disabled]="project.assignees.indexOf(username) > -1" type="button" name="button"
+                    class="btn btn-sm btn-success" (click)="assignToProject(project._id)">
+                    <span class="glyphicon glyphicon-user">&nbsp;</span>Assignees: {{ project.numberOfAssignees }}
+                </button>
 
-				<div class="dropdown-content">
-					<a [routerLink]="['/user/', participant]" *ngFor="let participant of project.assignees">{{ participant }}</a>
-				</div>
-			</div>
+                <div class="dropdown-content">
+                    <a [routerLink]="['/user/', participant]"
+                        *ngFor="let participant of project.assignees">{{ participant }}</a>
+                </div>
+            </div>
 
-			<button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button" class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
-					Unassign from this project
-			</button>
+            <button [disabled]="project.assignees.indexOf(username) < 0" type="button" name="button"
+                class="btn btn-sm btn-warning" (click)="unassignFromProject(project._id)">
+                Unassign from this project
+            </button>
 
-			<div class="dropdown">
-				<br />
-				<button *ngIf="username === project.createdBy || admin" type="button" name="button" class="btn btn-sm btn-warning">
-					<span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
-				</button>
+            <div class="dropdown">
+                <br />
+                <button *ngIf="username === project.createdBy || admin" type="button" name="button"
+                    class="btn btn-sm btn-warning">
+                    <span class="glyphicon glyphicon-list">&nbsp;</span>Project Status: {{ project.projectStatus }}
+                </button>
 
-				<div class="dropdown-content">
-					<a role="button" (click)="setProjectStatus(project._id, 'Not Started')">Not Started</a>
-					<a role="button" (click)="setProjectStatus(project._id, 'In Progress')">In Progress</a>
-					<a role="button" (click)="setProjectStatus(project._id, 'Completed')">Completed</a>
-				</div>
-			</div>
+                <div class="dropdown-content">
+                    <a role="button" (click)="setProjectStatus(project._id, 'Not Started')">Not Started</a>
+                    <a role="button" (click)="setProjectStatus(project._id, 'In Progress')">In Progress</a>
+                    <a role="button" (click)="setProjectStatus(project._id, 'Completed')">Completed</a>
+                </div>
+            </div>
 
-			<a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy || admin">
-				<button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
-			</a>
+            <a [routerLink]="['/edit-project', project._id]" *ngIf="username === project.createdBy || admin">
+                <button type="button" name="button" class="btn btn-sm btn-info">Edit Project</button>
+            </a>
 
-			<a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy || admin">
-				<button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
-			</a>
+            <a [routerLink]="['/delete-project', project._id]" *ngIf="username === project.createdBy || admin">
+                <button type="button" name="button" class="btn btn-sm btn-danger">Delete Project</button>
+            </a>
 
 
-		</div>
+        </div>
 
-		<ul class="list-group">
-			<li class="list-group-item">
-				<br />
-				<button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment(project._id)" [disabled]="newComment.indexOf(project._id) > -1">Post Comment</button>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <br />
+                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment(project._id)"
+                    [disabled]="newComment.indexOf(project._id) > -1">Post Comment</button>
 
-				<br />
-				<br />
+                <br />
+                <br />
 
-				<div *ngIf="newComment.indexOf(project._id) > -1">
-					<form [formGroup]="commentForm">
+                <div *ngIf="newComment.indexOf(project._id) > -1">
+                    <form [formGroup]="commentForm">
 
-						<textarea name="comment" rows="10" cols="30" class="form-control" formControlName="comment"></textarea>
+                        <textarea name="comment" rows="10" cols="30" class="form-control"
+                            formControlName="comment"></textarea>
 
-						<div [ngClass]="{'has-success': !commentForm.controls.comment.errors && commentForm.controls.comment.dirty, 'has-error': commentForm.controls.comment.dirty && commentForm.controls.comment.errors}">
-							<ul class="help-block">
-								<li *ngIf="commentForm.controls.comment.errors?.required && commentForm.controls.comment.dirty">This field is required</li>
-								<li *ngIf="(commentForm.controls.comment.errors?.maxlength && commentForm.controls.comment.dirty) ||(commentForm.controls.comment.errors?.minlength && commentForm.controls.comment.dirty)">Comment must be at least 1 character but no more than 200</li>
-							</ul>
-						</div>
+                        <div
+                            [ngClass]="{'has-success': !commentForm.controls.comment.errors && commentForm.controls.comment.dirty, 'has-error': commentForm.controls.comment.dirty && commentForm.controls.comment.errors}">
+                            <ul class="help-block">
+                                <li
+                                    *ngIf="commentForm.controls.comment.errors?.required && commentForm.controls.comment.dirty">
+                                    This field is required</li>
+                                <li
+                                    *ngIf="(commentForm.controls.comment.errors?.maxlength && commentForm.controls.comment.dirty) ||(commentForm.controls.comment.errors?.minlength && commentForm.controls.comment.dirty)">
+                                    Comment must be at least 1 character but no more than 200</li>
+                            </ul>
+                        </div>
 
-						<button [disabled]="!commentForm.valid || processing" type="submit" name="button" class="btn btn-sm btn-info" (click)="postComment(project._id)">Post</button>
-						<button [disabled]="processing" type="button" name="button" class="btn btn-sm btn-danger" (click)="cancelSubmission(project._id)">Cancel</button>
-					</form>
-				</div>
+                        <button [disabled]="!commentForm.valid || processing" type="submit" name="button"
+                            class="btn btn-sm btn-info" (click)="postComment(project._id)">Post</button>
+                        <button [disabled]="processing" type="button" name="button" class="btn btn-sm btn-danger"
+                            (click)="cancelSubmission(project._id)">Cancel</button>
+                    </form>
+                </div>
 
-				<li *ngIf="enabledComments.indexOf(project._id) === -1 && project.comments.length > 0" class="list-group-item">
-					<span role="button" (click)="expand(project._id)">
-						Show comments&nbsp;&nbsp;
-						<div class="glyphicon glyphicon-comment"></div>
-					</span>
-				</li>
+            <li *ngIf="enabledComments.indexOf(project._id) === -1 && project.comments.length > 0"
+                class="list-group-item">
+                <span role="button" (click)="expand(project._id)">
+                    Show comments&nbsp;&nbsp;
+                    <div class="glyphicon glyphicon-comment"></div>
+                </span>
+            </li>
 
-				<li *ngIf="enabledComments.indexOf(project._id) > -1" class="list-group-item">
-					<span role="button" (click)="collapse(project._id)">
-						Hide Comments&nbsp;&nbsp;
-						<div class="glyphicon glyphicon-comment"></div>
-					</span>
-				</li>
+            <li *ngIf="enabledComments.indexOf(project._id) > -1" class="list-group-item">
+                <span role="button" (click)="collapse(project._id)">
+                    Hide Comments&nbsp;&nbsp;
+                    <div class="glyphicon glyphicon-comment"></div>
+                </span>
+            </li>
 
-				<div *ngIf="enabledComments.indexOf(project._id) > -1">
-					<li *ngFor="let comment of project.comments" class="list-group-item">
-							<strong *ngIf="comment.commenter === project.createdBy">(Project creator)</strong>
-							<strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong> {{ comment.comment }}
-						<a role="button" *ngIf="username === comment.commenter || username === project.createdBy || admin" (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
-					</li>
-				</div>
-		</ul>
-	</div>
+            <div *ngIf="enabledComments.indexOf(project._id) > -1">
+                <li *ngFor="let comment of project.comments" class="list-group-item">
+                    <strong *ngIf="comment.commenter === project.createdBy">(Project creator)</strong>
+                    <strong [routerLink]="['/user/', comment.commenter]" role="button">{{ comment.commenter }}:</strong>
+                    {{ comment.comment }}
+                    <a role="button" *ngIf="username === comment.commenter || username === project.createdBy || admin"
+                        (click)="deleteComment(project._id, comment._id)">Delete Comment</a>
+                </li>
+            </div>
+        </ul>
+    </div>
 </div>
