@@ -35,33 +35,33 @@ describe('RegisterComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-			declarations: [
-				AppComponent,
-				NavbarComponent,
-				HomeComponent,
-				DashboardComponent,
-				RegisterComponent,
-				LoginComponent,
-				ProfileComponent,
-				ProjectComponent,
-				EditProjectComponent,
-				DeleteProjectComponent,
-				PublicProfileComponent,
-				UserComponent,
-				EditUserComponent,
-				DeleteUserComponent,
-				EditPasswordComponent,
-			],
-			imports: [
-				BrowserModule,
-				HttpModule,
-				AppRoutingModule,
-				ReactiveFormsModule,
-				FormsModule,
-				FlashMessagesModule
-			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
-		})
+            declarations: [
+                AppComponent,
+                NavbarComponent,
+                HomeComponent,
+                DashboardComponent,
+                RegisterComponent,
+                LoginComponent,
+                ProfileComponent,
+                ProjectComponent,
+                EditProjectComponent,
+                DeleteProjectComponent,
+                PublicProfileComponent,
+                UserComponent,
+                EditUserComponent,
+                DeleteUserComponent,
+                EditPasswordComponent,
+            ],
+            imports: [
+                BrowserModule,
+                HttpModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                FlashMessagesModule.forRoot()
+            ],
+            providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+        })
             .compileComponents();
     }));
 

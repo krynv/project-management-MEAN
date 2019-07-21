@@ -32,52 +32,52 @@ import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 
 describe('ProjectService', () => {
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			declarations: [
-				AppComponent,
-				NavbarComponent,
-				HomeComponent,
-				DashboardComponent,
-				RegisterComponent,
-				LoginComponent,
-				ProfileComponent,
-				ProjectComponent,
-				EditProjectComponent,
-				DeleteProjectComponent,
-				PublicProfileComponent,
-				UserComponent,
-				EditUserComponent,
-				DeleteUserComponent,
-				EditPasswordComponent,
-			],
-			imports: [
-				BrowserModule,
-				HttpModule,
-				AppRoutingModule,
-				ReactiveFormsModule,
-				FormsModule,
-				FlashMessagesModule
-			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
-		});
-	});
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AppComponent,
+                NavbarComponent,
+                HomeComponent,
+                DashboardComponent,
+                RegisterComponent,
+                LoginComponent,
+                ProfileComponent,
+                ProjectComponent,
+                EditProjectComponent,
+                DeleteProjectComponent,
+                PublicProfileComponent,
+                UserComponent,
+                EditUserComponent,
+                DeleteUserComponent,
+                EditPasswordComponent,
+            ],
+            imports: [
+                BrowserModule,
+                HttpModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                FlashMessagesModule.forRoot()
+            ],
+            providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+        });
+    });
 
-	it('should be created', inject([ProjectService], (service: ProjectService) => {
-		expect(service).toBeTruthy();
-	}));
+    it('should be created', inject([ProjectService], (service: ProjectService) => {
+        expect(service).toBeTruthy();
+    }));
 
-	it('should have all functions', inject([ProjectService], (service: ProjectService) => {
-		expect(service.createAuthenticationHeaders).toBeTruthy();
-		expect(service.newProject).toBeTruthy();
-		expect(service.getAllProjects).toBeTruthy();
-		expect(service.getSingleProject).toBeTruthy();
-		expect(service.editProject).toBeTruthy();
-		expect(service.deleteProject).toBeTruthy();
-		expect(service.assignToProject).toBeTruthy();
-		expect(service.unassignFromProject).toBeTruthy();
-		expect(service.postComment).toBeTruthy();
-		expect(service.deleteComment).toBeTruthy();
-		expect(service.setProjectStatus).toBeTruthy();
-	}));
+    it('should have all functions', inject([ProjectService], (service: ProjectService) => {
+        expect(service.createAuthenticationHeaders).toBeTruthy();
+        expect(service.newProject).toBeTruthy();
+        expect(service.getAllProjects).toBeTruthy();
+        expect(service.getSingleProject).toBeTruthy();
+        expect(service.editProject).toBeTruthy();
+        expect(service.deleteProject).toBeTruthy();
+        expect(service.assignToProject).toBeTruthy();
+        expect(service.unassignFromProject).toBeTruthy();
+        expect(service.postComment).toBeTruthy();
+        expect(service.deleteComment).toBeTruthy();
+        expect(service.setProjectStatus).toBeTruthy();
+    }));
 });

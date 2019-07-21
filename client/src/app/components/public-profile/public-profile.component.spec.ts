@@ -30,48 +30,48 @@ import { ProjectService } from '../../services/project.service';
 import { UserService } from '../../services/user.service';
 
 describe('PublicProfileComponent', () => {
-	let component: PublicProfileComponent;
-	let fixture: ComponentFixture<PublicProfileComponent>;
+    let component: PublicProfileComponent;
+    let fixture: ComponentFixture<PublicProfileComponent>;
 
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
-			declarations: [
-				AppComponent,
-				NavbarComponent,
-				HomeComponent,
-				DashboardComponent,
-				RegisterComponent,
-				LoginComponent,
-				ProfileComponent,
-				ProjectComponent,
-				EditProjectComponent,
-				DeleteProjectComponent,
-				PublicProfileComponent,
-				UserComponent,
-				EditUserComponent,
-				DeleteUserComponent,
-				EditPasswordComponent,
-			],
-			imports: [
-				BrowserModule,
-				HttpModule,
-				AppRoutingModule,
-				ReactiveFormsModule,
-				FormsModule,
-				FlashMessagesModule
-			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
-		})
-			.compileComponents();
-	}));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AppComponent,
+                NavbarComponent,
+                HomeComponent,
+                DashboardComponent,
+                RegisterComponent,
+                LoginComponent,
+                ProfileComponent,
+                ProjectComponent,
+                EditProjectComponent,
+                DeleteProjectComponent,
+                PublicProfileComponent,
+                UserComponent,
+                EditUserComponent,
+                DeleteUserComponent,
+                EditPasswordComponent,
+            ],
+            imports: [
+                BrowserModule,
+                HttpModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                FlashMessagesModule.forRoot()
+            ],
+            providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+        })
+            .compileComponents();
+    }));
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(PublicProfileComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
-	});
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PublicProfileComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-	// it('should create', () => {
-	// 	expect(component).toBeTruthy();
-	// });
+    // it('should create', () => {
+    // 	expect(component).toBeTruthy();
+    // });
 });

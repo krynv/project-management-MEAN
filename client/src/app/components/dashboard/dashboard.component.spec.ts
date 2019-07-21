@@ -58,7 +58,7 @@ describe('DashboardComponent', () => {
 				AppRoutingModule,
 				ReactiveFormsModule,
 				FormsModule,
-				FlashMessagesModule
+				FlashMessagesModule.forRoot()
 			],
 			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
 		})

@@ -30,39 +30,39 @@ import { ProjectService } from './project.service';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			declarations: [
-				AppComponent,
-				NavbarComponent,
-				HomeComponent,
-				DashboardComponent,
-				RegisterComponent,
-				LoginComponent,
-				ProfileComponent,
-				ProjectComponent,
-				EditProjectComponent,
-				DeleteProjectComponent,
-				PublicProfileComponent,
-				UserComponent,
-				EditUserComponent,
-				DeleteUserComponent,
-				EditPasswordComponent,
-			],
-			imports: [
-				BrowserModule,
-				HttpModule,
-				AppRoutingModule,
-				ReactiveFormsModule,
-				FormsModule,
-				FlashMessagesModule
-			],
-			providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
-		});
-	});
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AppComponent,
+                NavbarComponent,
+                HomeComponent,
+                DashboardComponent,
+                RegisterComponent,
+                LoginComponent,
+                ProfileComponent,
+                ProjectComponent,
+                EditProjectComponent,
+                DeleteProjectComponent,
+                PublicProfileComponent,
+                UserComponent,
+                EditUserComponent,
+                DeleteUserComponent,
+                EditPasswordComponent,
+            ],
+            imports: [
+                BrowserModule,
+                HttpModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                FlashMessagesModule.forRoot()
+            ],
+            providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, NotAuthGuard, ProjectService, UserService],
+        });
+    });
 
-	it('should be created', inject([UserService], (service: UserService) => {
-		expect(service).toBeTruthy();
-	}));
+    it('should be created', inject([UserService], (service: UserService) => {
+        expect(service).toBeTruthy();
+    }));
 
 });
