@@ -25,4 +25,4 @@ script:
   - cd ./client
   - npm i
   - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
-  - npm run e2e -- --watch=false --protractor-config=protractor-ci.conf.js
+  - npm run e2e -- --protractor-config=protractor-ci.conf.js
