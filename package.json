@@ -17,7 +17,7 @@
     "mongoose": "^5.7.5"
   },
   "devDependencies": {
-    "@angular/cli": "^8.3.9"
+    "@angular/cli": "^8.3.10"
   },
   "author": "",
   "license": "ISC"
