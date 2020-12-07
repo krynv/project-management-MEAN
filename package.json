@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "jstoxml": "^1.6.5",
-    "mongoose": "^5.9.6"
+    "mongoose": "^5.11.4"
   },
   "devDependencies": {
     "@angular/cli": "^9.0.7"
